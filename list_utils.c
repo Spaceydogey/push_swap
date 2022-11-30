@@ -14,14 +14,11 @@ t_list	*ps_lstnew(int content)
 
 t_list	*ps_lstlast(t_list *list)
 {
-	t_list	*res;
-
 	if (!list)
 		return (NULL);
-	res = list;
-	while (res->next)
-		res = res->next;
-	return (res);	
+	while (list->next)
+		list = list->next;
+	return (list);	
 }
 
 void	ps_addback(t_list **list, t_list *new)
@@ -38,4 +35,32 @@ void	ps_addback(t_list **list, t_list *new)
 		old_last->next = new;
 	}
 	return ;
+}
+
+t_list	*ps_lstclear(t_list **list)
+{
+	t_list	*tmp;
+
+	if (!list)
+		return (NULL);
+	while (*list)
+	{
+		tmp = *list;
+		*list = tmp->next;
+		free(tmp);
+	}
+	return (NULL);
+}
+
+int	ps_lstsize(t_list *lst)
+{
+	int		len;
+
+	len = 0;
+	while (lst)
+	{
+		++len;
+		lst = lst->next;
+	}
+	return (len);
 }

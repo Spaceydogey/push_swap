@@ -11,13 +11,21 @@ typedef struct s_list
 		int				content;
 		struct s_list	*next;
 } t_list;
-
-t_list  *ps_lstclear(t_list **list);
-void 	swap(t_list **list);
+////////////////MOUVE////////////////
 void    push(t_list **a, t_list **b);
+void 	swap(t_list **list);
+void    rotate(t_list **list);
+void    rev_rotate(t_list **list);
+////////////////////////////////////
+
+void    ps_addfront(t_list **list, t_list *new);
+t_list  *ps_lstclear(t_list **list);
 long	ps_atoi(const char *nptr);
 int		ps_lstsize(t_list *lst);
 void	ps_addback(t_list **list, t_list *new);
 t_list	*ps_lstnew(int content);
 t_list	*ps_lstlast(t_list *list);
+//
+void    print_lst(t_list **lst);
+//
 #endif

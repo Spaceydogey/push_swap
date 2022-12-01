@@ -37,6 +37,15 @@ void	ps_addback(t_list **list, t_list *new)
 	return ;
 }
 
+void	ps_addfront(t_list **list, t_list *new)
+{
+	if (!new || !list)
+		return ;
+	new->next = *list; 
+	*list = new;
+	return ;
+}
+
 t_list	*ps_lstclear(t_list **list)
 {
 	t_list	*tmp;

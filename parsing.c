@@ -39,6 +39,7 @@ t_list	*parsing(int ac, char **av)
 	t_list		*new;
 
 	i = 0;
+	stack_a = NULL;
 	while (++i < ac)
 	{
 		if (argument_check(av[i]) == 0)
@@ -91,8 +92,15 @@ int	main(int ac, char **av)
 		ft_putendl_fd("Error\n", 2);
 		return (1);
 	}
+	ft_putendl_fd("------\n   a  \n------", 1);
 	print_lst(&stack_a);
-	swap(&stack_a);
+//	rotate(&stack_a);
+//	ft_putendl_fd("------\n   a  \n------", 1);
+//	print_lst(&stack_a);
+	rev_rotate(&stack_a);
+	ft_putendl_fd("------\n   a  \n------", 1);
+	print_lst(&stack_a);
+	/*swap(&stack_a);
 	ft_putendl_fd("------\n swap\n------", 1);
 	ft_putendl_fd("------\n   a  \n------", 1);
 	print_lst(&stack_a);
@@ -104,6 +112,12 @@ int	main(int ac, char **av)
 	print_lst(&stack_a);
 	ft_putendl_fd("------\n   b  \n------", 1);
 	print_lst(&stack_b);
+	push(&stack_a, &stack_b);
+	ft_putendl_fd("------\n push\n------", 1);
+	ft_putendl_fd("------\n   a  \n------", 1);
+	print_lst(&stack_a);
+	ft_putendl_fd("------\n   b  \n------", 1);
+	print_lst(&stack_b);*/
 	ps_lstclear(&stack_a);
 	ps_lstclear(&stack_b);
 }

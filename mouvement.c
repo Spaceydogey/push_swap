@@ -21,7 +21,7 @@ void	push(t_list **dst, t_list **src)
 	tmp_src = *src;
 	tmp_new = ps_lstnew(tmp_src->content);
 	*src = (*src)->next;
-	free(tmp_src);
+//	free(tmp_src);
 	ps_addfront(dst, tmp_new);
 }
 

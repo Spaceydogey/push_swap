@@ -8,16 +8,38 @@
 
 typedef struct s_list
 {
-		int				content;
-		struct s_list	*next;
+	int				content;
+	struct s_list	*next;
 } t_list;
-////////////////MOUVE////////////////
+
+typedef struct	s_ext
+{
+	int	val;
+	int	pos;
+} t_ext;
+
+/////////////////MOVE////////////////
 void    push(t_list **a, t_list **b);
 void 	swap(t_list **list);
 void    rotate(t_list **list);
 void    rev_rotate(t_list **list);
-////////////////////////////////////
-
+///////////////OPERATION/////////////
+void    sa(t_list **stack_a);
+void    sb(t_list   **stack_b);
+void    ss(t_list **stack_a, t_list **stack_b);
+void    pa(t_list **stack_a, t_list **stack_b);
+void    pb(t_list **stack_a, t_list **stack_b);
+void    ra(t_list **stack_a);
+void    rb(t_list **stack_b);
+void    rr(t_list **stack_a, t_list **stack_b);
+void    rra(t_list **stack_a);
+void    rrb(t_list **stack_b);
+void    rrr(t_list **stack_a, t_list **stack_b);
+/////////////////ALGO///////////////
+void	push_swap(t_list **lst);
+///////////////PARASING/////////////
+t_list	*parsing(int ac, char **av);
+/////////////////LIST////////////////
 void    ps_addfront(t_list **list, t_list *new);
 t_list  *ps_lstclear(t_list **list);
 long	ps_atoi(const char *nptr);
@@ -25,7 +47,7 @@ int		ps_lstsize(t_list *lst);
 void	ps_addback(t_list **list, t_list *new);
 t_list	*ps_lstnew(int content);
 t_list	*ps_lstlast(t_list *list);
-//
+////////////////////////////////////
 void    print_lst(t_list **lst);
-//
+
 #endif

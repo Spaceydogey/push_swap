@@ -16,6 +16,8 @@ typedef struct	s_ext
 {
 	int	val;
 	int	pos;
+	int dst;
+	char *mvt;
 } t_ext;
 
 /////////////////MOVE////////////////
@@ -37,6 +39,7 @@ void    rrb(t_list **stack_b);
 void    rrr(t_list **stack_a, t_list **stack_b);
 /////////////////ALGO///////////////
 void	push_swap(t_list **lst);
+//void    sort(t_list **stack_a, t_list **stack_b);
 ///////////////PARASING/////////////
 t_list	*parsing(int ac, char **av);
 /////////////////LIST////////////////

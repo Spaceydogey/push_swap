@@ -14,10 +14,10 @@ typedef struct s_list
 
 typedef struct	s_ext
 {
-	int	val;
-	int	pos;
-	int dst;
-	char *mvt;
+	int				val;
+	int				pos;
+	int 			dst;
+	struct s_ext	*next;
 } t_ext;
 
 /////////////////MOVE////////////////

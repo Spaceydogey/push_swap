@@ -6,23 +6,19 @@ static void	dst(t_ext **ext, int size)
 
 	res = *ext;
 	res->dst = res->pos - 1;
-	//printf(">> %d\n", res.dst);
-	res->mvt = "up";
 	if (res->dst > size - res->pos + 1)
-	{
 		res->dst = size - res->pos + 1;
-	//	printf(">>> %d\n", res.dst);
-		res->mvt = "down";
-	}
 }
 
-static t_ext	**find_min_20(t_list **stack_a, int len)
+static t_ext	min_init()
+
+static t_ext	*find_min_20(t_list **stack_a, int len)
 {
 	int		i;
 	int		k;
 	int		size;
 	t_list	*tmp;
-	t_ext	**res;
+	t_ext	*res;
 	//TODO MIN EN LIST CHAINER
 
 	tmp = *stack_a;
@@ -36,21 +32,21 @@ static t_ext	**find_min_20(t_list **stack_a, int len)
 	{
 		i = 0;
 
-		res[k] = malloc(sizeof(t_ext) * len); 
-		if (!res[k])
+		res = malloc(sizeof(t_ext)); 
+		if (!res)
 			return (NULL);
-		(res[k])->pos = 1;
-		(res[k])->val = tmp->content;
-		dst(&res[k], size);
+		res->pos = 1;
+		res->val = tmp->content;
+		dst(&res, size);
 		while(tmp)
 		{
 			i++;
 //		printf(">>>min\n");
-			if ((res[k])->val >= tmp->content)
+			if (res->val >= tmp->content)
 			{
-				(res[k])->val = tmp->content;
-				(res[k])->pos = i;
-				dst(&res[k], size);
+				res->val = tmp->content;
+				res->pos = i;
+				dst(&res, size);
 			}
 			tmp = tmp->next;
 		}

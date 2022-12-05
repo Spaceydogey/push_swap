@@ -144,7 +144,7 @@ static void push_all_min(t_list **stack_a, t_list **stack_b)
 	int		len;
 	int		size;
 
-	len = 20;
+	len = LEN;
 	size = ps_lstsize(*stack_a);
 	if (len > size)
 		len = size;
@@ -278,12 +278,16 @@ static void	sort(t_list **stack_a, t_list **stack_b)
 {
 	t_ext	*min;
 	int i = -1;
-	while(++i < 26)
+	int	len;
+
+	len = (ps_lstsize(*stack_a)) / LEN;
+	
+	while(++i < len)
 	{
 		push_all_min(stack_a, stack_b);
-		sort_b(stack_a, stack_b, 20);
-		if (i != (5 - 1))
-			push_sorted(stack_a, stack_b, 20);
+		sort_b(stack_a, stack_b, LEN);
+		if (i != (len - 1))
+			push_sorted(stack_a, stack_b, LEN);
 	}
 }
 
@@ -305,7 +309,6 @@ void	push_swap(t_list **lst)
 	stack_b = NULL;
 	sort(&stack_a, &stack_b);
 	push_all_of_b(&stack_a, &stack_b);
-//	push_all_of_b(&stack_a, &stack_b);
 /*	print_lst(&stack_a);
 	ft_putendl_fd("_\na", 1);
 	print_lst(&stack_b);

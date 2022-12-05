@@ -219,6 +219,20 @@ static void push_sorted(t_list **stack_a, t_list **stack_b, int len)
 	while (++i < len)
 		pb(stack_a, stack_b);
 }
+int	is_rev_sorted(t_list **stack)
+{
+	t_list	*tmp;
+
+	tmp = *stack;
+
+	while (tmp->next)
+	{
+		if (tmp->content < tmp->next->content)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
 static void	sort_b(t_list **stack_a, t_list **stack_b, int len)
 {
 	t_ext	min;
@@ -237,7 +251,7 @@ static void	sort_b(t_list **stack_a, t_list **stack_b, int len)
 	
 	if (size == 0)
 		return ;
-	if (is_rev_sorted(stack_a) == 1)
+	if (is_rev_sorted(stack_b) == 1)
 		return ;
 //	if (size == 3 && max.pos == 1 && min.pos == 2)
 //		rrb(stack_b);
@@ -247,16 +261,16 @@ static void	sort_b(t_list **stack_a, t_list **stack_b, int len)
 		len--;
 		pa(stack_a, stack_b);
 	}
-	else if (min.pos == 1)
-		ra(stack_a);
+	//else if (min.pos == 1)
+	//	rb(stack_b);
 //	else if (max.pos == 2 && min.pos == size)
 //		sb(stack_b);
 	else if (max.pos > size / 2)
 		rrb(stack_b);
 	else if (max.pos <= size / 2)
 		rb(stack_b);
-	if (len == 0)
-		return ;
+//	if (len == 0)
+//		return ;
 	sort_b(stack_a, stack_b, len);
 }
 
@@ -264,14 +278,12 @@ static void	sort(t_list **stack_a, t_list **stack_b)
 {
 	t_ext	*min;
 	int i = -1;
-	while(++i < 4)
+	while(++i < 26)
 	{
-		ft_putstr_fd("Pmin\n",1);
 		push_all_min(stack_a, stack_b);
-		ft_putstr_fd("Ssort\n",1);
 		sort_b(stack_a, stack_b, 20);
-		ft_putstr_fd("Psort\n",1);
-		push_sorted(stack_a, stack_b, 20);
+		if (i != (5 - 1))
+			push_sorted(stack_a, stack_b, 20);
 	}
 }
 
@@ -292,6 +304,7 @@ void	push_swap(t_list **lst)
 	stack_a = *lst;
 	stack_b = NULL;
 	sort(&stack_a, &stack_b);
+	push_all_of_b(&stack_a, &stack_b);
 //	push_all_of_b(&stack_a, &stack_b);
 /*	print_lst(&stack_a);
 	ft_putendl_fd("_\na", 1);

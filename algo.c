@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/06 14:09:09 by hdelmas           #+#    #+#             */
+/*   Updated: 2022/12/06 14:09:11 by hdelmas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static void	dst(t_ext **ext, int size)
@@ -138,13 +150,11 @@ static void goto_closest(t_list **stack_a, int len)
 	free(min);
 }
 
-static void push_all_min(t_list **stack_a, t_list **stack_b)
+static void push_all_min(t_list **stack_a, t_list **stack_b, int len)
 {
 	t_ext	**min;
-	int		len;
 	int		size;
 
-	len = LEN;
 	size = ps_lstsize(*stack_a);
 	if (len > size)
 		len = size;
@@ -166,14 +176,12 @@ static t_ext	find_max(t_list **stack_a)
 	res.val = 0;
 	res.pos = 0;
 	tmp = *stack_a;
-//	printf(">>>min\n");
 	if (!tmp)
 		return (res);
 	res.val = tmp->content;
 	while(tmp)
 	{
 		i++;
-//		printf(">>>min\n");
 		if (res.val <= tmp->content)
 		{
 			res.val = tmp->content;
@@ -191,17 +199,14 @@ static t_ext	find_min(t_list **stack_a)
 	t_ext	res;
 
 	i = 0;
-	res.val = 0;
-	res.pos = 0;
 	tmp = *stack_a;
-//	printf(">>>min\n");
 	if (!tmp)
 		return (res);
 	res.val = tmp->content;
+	res.pos = 1;
 	while(tmp)
 	{
 		i++;
-//		printf(">>>min\n");
 		if (res.val >= tmp->content)
 		{
 			res.val = tmp->content;
@@ -211,20 +216,12 @@ static t_ext	find_min(t_list **stack_a)
 	}
 	return (res);
 }
-static void push_sorted(t_list **stack_a, t_list **stack_b, int len)
-{
-	int	i;
 
-	i = -1;
-	while (++i < len)
-		pb(stack_a, stack_b);
-}
 int	is_rev_sorted(t_list **stack)
 {
 	t_list	*tmp;
 
 	tmp = *stack;
-
 	while (tmp->next)
 	{
 		if (tmp->content < tmp->next->content)
@@ -233,34 +230,25 @@ int	is_rev_sorted(t_list **stack)
 	}
 	return (1);
 }
+
 static void	sort_b(t_list **stack_a, t_list **stack_b, int len)
 {
 	t_ext	min;
 	t_ext	max;
 	int		size;
 
-//	printf(">>sort\n");
 	min = find_min(stack_b);
 	max = find_max(stack_b);
-//	printf(">>%d %d\n", min.val, min.pos);
-//	size = ps_lstsize(*stack_b);
 	size = ps_lstsize(*stack_b);
-//	printf("max = %d ; size = %d\n", max.pos, size);
-//	printf("min = %d\n", min.pos);
-	//printf(">>size : %d\n", size);
 	
 	if (size == 0)
-		return ;
+		return ;	
 	if (is_rev_sorted(stack_b) == 1)
 		return ;
 //	if (size == 3 && max.pos == 1 && min.pos == 2)
 //		rrb(stack_b);
 	else if (max.pos == 1)
-	{
-		//ft_putnbr_fd(len, 1);
-		len--;
 		pa(stack_a, stack_b);
-	}
 	//else if (min.pos == 1)
 	//	rb(stack_b);
 //	else if (max.pos == 2 && min.pos == size)
@@ -269,49 +257,71 @@ static void	sort_b(t_list **stack_a, t_list **stack_b, int len)
 		rrb(stack_b);
 	else if (max.pos <= size / 2)
 		rb(stack_b);
-//	if (len == 0)
-//		return ;
 	sort_b(stack_a, stack_b, len);
+}
+
+static void	sort_a(t_list **stack_a, t_list **stack_b)
+{
+	t_ext	min;
+	t_ext	max;
+	int		size;
+
+	min = find_min(stack_a);
+	max = find_max(stack_a);
+	size = ps_lstsize(*stack_a);
+	if (size == 0)
+		return ;
+	if (is_sorted(stack_a) == 1)
+		return ;
+	if (size == 3 && min.pos == 1 && max.pos == 2)
+		rra(stack_a);
+	else if (min.pos == 1)
+		pb(stack_a, stack_b);
+	else if (min.pos == 2 && max.pos == size)
+		sa(stack_a);
+	else if (min.pos > size / 2)
+		rra(stack_a);
+	else if (min.pos <= size / 2)
+		ra(stack_a);
+	sort_a(stack_a, stack_b);
 }
 
 static void	sort(t_list **stack_a, t_list **stack_b)
 {
 	t_ext	*min;
-	int i = -1;
-	int	len;
+	int		len;
+	int		size;
 
-	len = (ps_lstsize(*stack_a)) / LEN;
-	
-	while(++i < len)
+	if (is_sorted(stack_a))
+			return ;
+	size = ps_lstsize(*stack_a);
+	len = size / NBR_CHUNK;
+	if (len < LEN)
+	   len = LEN;	
+	if (size <= LEN)
+		sort_a(stack_a, stack_b);
+	else
 	{
-		push_all_min(stack_a, stack_b);
-		sort_b(stack_a, stack_b, LEN);
-		if (i != (len - 1))
-			push_sorted(stack_a, stack_b, LEN);
+		push_all_min(stack_a, stack_b, len);
+		sort_b(stack_a, stack_b, len);
 	}
+	sort(stack_a, stack_b);
 }
 
 static void push_all_of_b(t_list **stack_a, t_list **stack_b)
 {
-//	sort_b(stack_b);
 	while (*stack_b)
 		pa(stack_a, stack_b);
 }
-
 
 void	push_swap(t_list **lst)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
 	
-//	printf(">push_swap\n");
 	stack_a = *lst;
 	stack_b = NULL;
 	sort(&stack_a, &stack_b);
 	push_all_of_b(&stack_a, &stack_b);
-/*	print_lst(&stack_a);
-	ft_putendl_fd("_\na", 1);
-	print_lst(&stack_b);
-	ft_putendl_fd("_\nb", 1);*/
 }
 

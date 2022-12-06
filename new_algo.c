@@ -56,11 +56,13 @@ static t_ext	**find_min_20(t_list **stack_a, int len, int iter)
 		if (!res[k])
 			return (NULL); //TODO FREE ON FAILURE
 		i = 1;
-		while (i < iter * LEN)
+		while (tmp && i < iter * LEN)
 		{
 			i++;
 			tmp = tmp->next;
 		}
+		if (!tmp)
+			return (NULL);
 		(res[k])->pos = i;
 		(res[k])->val = tmp->content;
 		dst(&res[k], size);
@@ -174,7 +176,6 @@ static void push_all_min(t_list **stack_a, t_list **stack_b, int len, int iter)
 		goto_closest(stack_a, len, iter);
 		pb(stack_a, stack_b);
 		len--;
-		iter--;
 	}
 }
 
@@ -304,10 +305,11 @@ static void	sort(t_list **stack_a, t_list **stack_b, int iter)
 	if (is_sorted(stack_a))
 			return ;
 	size = ps_lstsize(*stack_a);
-	if (size <= LEN)
+	if (size <= LEN || iter == 1)
 		sort_a(stack_a, stack_b);
 	else
 	{
+		printf("iter %d\n", iter);
 		push_all_min(stack_a, stack_b, LEN, iter);
 		sort_b(stack_a, stack_b);
 		push_all_of_b(stack_a, stack_b);
@@ -324,7 +326,7 @@ void	push_swap(t_list **lst)
 	
 	stack_a = *lst;
 	stack_b = NULL;
-	iter = ps_lstsize(stack_a) - 1;
+	iter = ps_lstsize(stack_a) / LEN;
 	sort(&stack_a, &stack_b, iter);
 	push_all_of_b(&stack_a, &stack_b);
 }

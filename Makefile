@@ -1,7 +1,7 @@
 .SILENT:
 NAME = push_swap
 
-FILES = algo.c  libft_utils.c  list_utils.c  main.c  mouvement.c  operations.c  parsing.c
+FILES = new_algo.c  libft_utils.c  list_utils.c  main.c  mouvement.c  operations.c  parsing.c
 
 #SRCS = $(addprefix src, $(FILES))
 SRCS = $(FILES)

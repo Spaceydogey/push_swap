@@ -6,8 +6,7 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-# define LEN 41
-# define NBR_CHUNK 26
+# define LEN 25
 typedef struct s_list
 {
 	int				content;

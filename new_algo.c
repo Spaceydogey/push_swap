@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 14:09:09 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/06 16:39:59 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/06 17:30:32 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	is_in_tab(t_ext **tab, int size, int content)
 	return (0);
 }
 
-static t_ext	**find_min_20(t_list **stack_a, int len)
+static t_ext	**find_min_20(t_list **stack_a, int len, int iter)
 {
 	int		i;
 	int		k;
@@ -55,10 +55,15 @@ static t_ext	**find_min_20(t_list **stack_a, int len)
 		(res[k]) = malloc(sizeof(t_ext)); 
 		if (!res[k])
 			return (NULL); //TODO FREE ON FAILURE
-		(res[k])->pos = 1;
+		i = 1;
+		while (i < iter * LEN)
+		{
+			i++;
+			tmp = tmp->next;
+		}
+		(res[k])->pos = i;
 		(res[k])->val = tmp->content;
 		dst(&res[k], size);
-		i = 1;
 		while(tmp)
 		{
 			while (tmp && is_in_tab(res, k - 1, (res[k])->val) == 1)
@@ -115,7 +120,7 @@ static int	is_sorted(t_list **stack_a)
 	return (1);
 }
 
-static void goto_closest(t_list **stack_a, int len)
+static void goto_closest(t_list **stack_a, int len, int	iter)
 {
 	int	k;
 	int	closest_min;
@@ -124,7 +129,7 @@ static void goto_closest(t_list **stack_a, int len)
 	t_ext	**min;
 
 	k = 0;
-	min = find_min_20(stack_a, len);
+	min = find_min_20(stack_a, len, iter);
 	if (!min)
 		return ;
 	size = ps_lstsize(*stack_a);
@@ -156,7 +161,7 @@ static void goto_closest(t_list **stack_a, int len)
 	free(min);
 }
 
-static void push_all_min(t_list **stack_a, t_list **stack_b, int len)
+static void push_all_min(t_list **stack_a, t_list **stack_b, int len, int iter)
 {
 	t_ext	**min;
 	int		size;
@@ -166,9 +171,10 @@ static void push_all_min(t_list **stack_a, t_list **stack_b, int len)
 		len = size;
 	while (len > 0)
 	{
-		goto_closest(stack_a, len);
+		goto_closest(stack_a, len, iter);
 		pb(stack_a, stack_b);
 		len--;
+		iter--;
 	}
 }
 
@@ -283,7 +289,13 @@ static void	sort_a(t_list **stack_a, t_list **stack_b)
 	sort_a(stack_a, stack_b);
 }
 
-static void	sort(t_list **stack_a, t_list **stack_b)
+static void push_all_of_b(t_list **stack_a, t_list **stack_b)
+{
+	while (*stack_b)
+		pa(stack_a, stack_b);
+}
+
+static void	sort(t_list **stack_a, t_list **stack_b, int iter)
 {
 	t_ext	*min;
 	int		len;
@@ -296,26 +308,24 @@ static void	sort(t_list **stack_a, t_list **stack_b)
 		sort_a(stack_a, stack_b);
 	else
 	{
-		push_all_min(stack_a, stack_b, LEN);
+		push_all_min(stack_a, stack_b, LEN, iter);
 		sort_b(stack_a, stack_b);
+		push_all_of_b(stack_a, stack_b);
+		iter--;
 	}
-	sort(stack_a, stack_b);
-}
-
-static void push_all_of_b(t_list **stack_a, t_list **stack_b)
-{
-	while (*stack_b)
-		pa(stack_a, stack_b);
+	sort(stack_a, stack_b, iter);
 }
 
 void	push_swap(t_list **lst)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
+	int iter;
 	
 	stack_a = *lst;
 	stack_b = NULL;
-	sort(&stack_a, &stack_b);
+	iter = ps_lstsize(stack_a) - 1;
+	sort(&stack_a, &stack_b, iter);
 	push_all_of_b(&stack_a, &stack_b);
 }
 

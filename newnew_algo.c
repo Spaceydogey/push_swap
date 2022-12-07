@@ -38,8 +38,7 @@ static void find_next_min(t_list **stack_a, t_ext **min, int iter)
 	if (!tmp)
 		return ;
 	k = iter * LEN;
-	i = iter * LEN;
-	j = 0;
+	i = 1;
 	while(k < size - (iter * LEN))
 	{
 		(min[k]) = malloc(sizeof(t_ext)); 
@@ -48,7 +47,8 @@ static void find_next_min(t_list **stack_a, t_ext **min, int iter)
 		(min[k])->pos = i;
 		(min[k])->val = tmp->content;
 		dst(&min[k], size);
-		while(tmp && j < size)
+		j = iter * LEN;
+		while(tmp && j < size - (iter * LEN))
 		{
 			while (tmp && is_in_tab(min, k - 1, (min[k])->val) == 1)
 			{	
@@ -63,8 +63,10 @@ static void find_next_min(t_list **stack_a, t_ext **min, int iter)
 			}//skip doubles
 			if (tmp && (min[k])->val >= tmp->content && is_in_tab(min, k - 1, tmp->content) == 0)
 			{
-				
+				(min[k])->val = tmp->content;
+				(min[k])->pos = i;
 				dst(&(min[k]), size);
+				
 				while (tmp && is_in_tab(min, k, tmp->content) == 1)
 				{	
 					tmp = tmp->next;
@@ -81,9 +83,13 @@ static void find_next_min(t_list **stack_a, t_ext **min, int iter)
 			}
 			j++;
 		}
-	
+		// ft_putnbr_fd(min[k]->val, 1);
+		// write(1, "\n", 1);
+		// ft_putnbr_fd(min[k]->dst, 1);
+		// write(1, "\n", 1);
 		tmp = *stack_a;
 		k++;
+		i = 1;
 	}
 }
 
@@ -188,8 +194,8 @@ static void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int 
 			return ;
 	size = ps_lstsize(*stack_a);
 	if (size <= LEN || iter == iter_max)
-		return ;
-		// sort_a(stack_a, stack_b);
+		sort_a(stack_a, stack_b);
+		// return ;
 	else
 	{
 		push_all_min(stack_a, stack_b, min, iter);
@@ -215,4 +221,5 @@ void	push_swap(t_list **lst)
 	iter_max = ps_lstsize(stack_a) / LEN;
 	sort(&stack_a, &stack_b, min, iter, iter_max);
 	push_all_of_b(&stack_a, &stack_b);
+	print_lst(&stack_a);
 }

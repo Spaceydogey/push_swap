@@ -21,12 +21,24 @@ static void	dst(t_ext **ext, int size)
 	if (res->dst > size - res->pos + 1)
 		res->dst = size - res->pos + 1;
 }
-static int	is_in_tab(t_ext **tab, int size, int content)
+
+static int	is_in_tab(t_ext **tab, int size, int content, t_ext ***old_min, int iter)
 {
 	int	i;
+	int	k;
 
 	i = -1;
 // 0 1 2 3 ... size
+	while (++i < iter)
+	{
+		k = -1;
+		while (++k < 2)
+		{
+			if ((old_min[k][i])->val == content)
+				return (1);
+		}
+	}
+	i = -1;
 	while (++i <= size)
 	{
 		if ((tab[i])->val == content)
@@ -35,7 +47,7 @@ static int	is_in_tab(t_ext **tab, int size, int content)
 	return (0);
 }
 
-static t_ext	**find_min_20(t_list **stack_a, int len, int iter)
+static t_ext	**find_min_20(t_list **stack_a, t_ext ***old_min, int len, int iter)
 {
 	int		i;
 	int		k;
@@ -45,7 +57,6 @@ static t_ext	**find_min_20(t_list **stack_a, int len, int iter)
 
 	tmp = *stack_a;
 	size = ps_lstsize(*stack_a);
-//	printf(">>>min\n");
 	res = malloc(sizeof(t_ext *) * len); 
 	if (!tmp || !res)
 		return (NULL);
@@ -56,11 +67,11 @@ static t_ext	**find_min_20(t_list **stack_a, int len, int iter)
 		if (!res[k])
 			return (NULL); //TODO FREE ON FAILURE
 		i = 1;
-		while (tmp && i < iter * LEN)
-		{
-			i++;
-			tmp = tmp->next;
-		}
+		// while (tmp && i < iter * LEN)
+		// {
+		// 	i++;
+		// 	tmp = tmp->next;
+		// }
 		if (!tmp)
 			return (NULL);
 		(res[k])->pos = i;
@@ -68,7 +79,7 @@ static t_ext	**find_min_20(t_list **stack_a, int len, int iter)
 		dst(&res[k], size);
 		while(tmp)
 		{
-			while (tmp && is_in_tab(res, k - 1, (res[k])->val) == 1)
+			while (tmp && is_in_tab(res, k - 1, (res[k])->val, old_min, iter) == 1)
 			{	
 				tmp = tmp->next;
 				i++;
@@ -80,12 +91,12 @@ static t_ext	**find_min_20(t_list **stack_a, int len, int iter)
 				}
 			}//skip doubles
 		//	printf("is in tab %d\n", is_in_tab(res, k, tmp->content));
-			if (tmp && (res[k])->val >= tmp->content && is_in_tab(res, k - 1, tmp->content) == 0)
+			if (tmp && (res[k])->val >= tmp->content && is_in_tab(res, k - 1, tmp->content, old_min, iter) == 0)
 			{
 				(res[k])->val = tmp->content;
 				(res[k])->pos = i;
 				dst(&(res[k]), size);
-				while (tmp && is_in_tab(res, k, tmp->content) == 1)
+				while (tmp && is_in_tab(res, k, tmp->content, old_min, iter) == 1)
 				{
 					tmp = tmp->next;
 					i++;
@@ -122,16 +133,24 @@ static int	is_sorted(t_list **stack_a)
 	return (1);
 }
 
-static void goto_closest(t_list **stack_a, int len, int	iter)
+static void goto_closest(t_list **stack_a, int len, int	iter, int iter_max)
 {
 	int	k;
 	int	closest_min;
 	int	closest_pos;
 	int	size;
+	static t_ext	**min_lst[4];
 	t_ext	**min;
 
+//	if (!min_lst)
+	// {
+	// 	min_lst = malloc(sizeof(t_ext **) + iter_max);
+	// 	if (!min_lst)
+	// 		return ;
+	// }
 	k = 0;
-	min = find_min_20(stack_a, len, iter);
+	min_lst[iter] = find_min_20(stack_a, min_lst, len, iter);
+	min = min_lst[iter];
 	if (!min)
 		return ;
 	size = ps_lstsize(*stack_a);
@@ -158,12 +177,12 @@ static void goto_closest(t_list **stack_a, int len, int	iter)
 		closest_min--;
 	}
 	k = -1;
-	while (++k < len)
-		free(min[k]);
-	free(min);
+	// while (++k < len)
+	// 	free(min[k]);
+	// free(min);
 }
 
-static void push_all_min(t_list **stack_a, t_list **stack_b, int len, int iter)
+static void push_all_min(t_list **stack_a, t_list **stack_b, int len, int iter, int iter_max)
 {
 	t_ext	**min;
 	int		size;
@@ -173,7 +192,7 @@ static void push_all_min(t_list **stack_a, t_list **stack_b, int len, int iter)
 		len = size;
 	while (len > 0)
 	{
-		goto_closest(stack_a, len, iter);
+		goto_closest(stack_a, len, iter, iter_max);
 		pb(stack_a, stack_b);
 		len--;
 	}
@@ -296,7 +315,7 @@ static void push_all_of_b(t_list **stack_a, t_list **stack_b)
 		pa(stack_a, stack_b);
 }
 
-static void	sort(t_list **stack_a, t_list **stack_b, int iter)
+static void	sort(t_list **stack_a, t_list **stack_b, int iter, int iter_max)
 {
 	t_ext	*min;
 	int		len;
@@ -305,29 +324,32 @@ static void	sort(t_list **stack_a, t_list **stack_b, int iter)
 	if (is_sorted(stack_a))
 			return ;
 	size = ps_lstsize(*stack_a);
-	if (size <= LEN || iter == 1)
-		sort_a(stack_a, stack_b);
+	if (size <= LEN || iter == iter_max)
+		return ;
+		// sort_a(stack_a, stack_b);
 	else
 	{
 		printf("iter %d\n", iter);
-		push_all_min(stack_a, stack_b, LEN, iter);
+		push_all_min(stack_a, stack_b, LEN, iter, iter_max);
 		sort_b(stack_a, stack_b);
 		push_all_of_b(stack_a, stack_b);
-		iter--;
+		iter++;
 	}
-	sort(stack_a, stack_b, iter);
+	sort(stack_a, stack_b, iter, iter_max);
 }
 
 void	push_swap(t_list **lst)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
-	int iter;
+	int iter_max;
+	int	iter;
 	
 	stack_a = *lst;
 	stack_b = NULL;
-	iter = ps_lstsize(stack_a) / LEN;
-	sort(&stack_a, &stack_b, iter);
+	iter = 0;
+	iter_max = ps_lstsize(stack_a) / LEN;
+	sort(&stack_a, &stack_b, iter, iter_max);
 	push_all_of_b(&stack_a, &stack_b);
 }
 

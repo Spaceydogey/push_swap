@@ -1,7 +1,7 @@
 .SILENT:
 NAME = push_swap
 
-FILES = new_algo.c  libft_utils.c  list_utils.c  main.c  mouvement.c  operations.c  parsing.c
+FILES = newnew_algo.c algo_utils.c  libft_utils.c  list_utils.c  main.c  mouvement.c  operations.c  parsing.c
 
 #SRCS = $(addprefix src, $(FILES))
 SRCS = $(FILES)
@@ -22,11 +22,11 @@ DETECTED_OS = $(shell uname)
 $(NAME): $(OBJ)
 		$(PRINT_OS)
 		$(PRINT) "$(CYAN)making:\t$(NOCOLOR)$(NAME)"
-		$(CC) $(CFLAGS) $(OBJ) -o $(NAME) libft/libft.a
+		$(CC) $(CFLAGS)  $(OBJ) -o $(NAME) libft/libft.a
 		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(NAME)"
 
 .c.o:
-		$(CC) $(CLFAGS) -c $< -o $(<:.c=.o) 
+		$(CC) $(CLFAGS)  -c $< -o $(<:.c=.o) 
 
 ###__RULES__###
 all: $(NAME)

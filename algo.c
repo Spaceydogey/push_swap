@@ -318,4 +318,3 @@ void	push_swap(t_list **lst)
 	sort(&stack_a, &stack_b);
 	push_all_of_b(&stack_a, &stack_b);
 }
-

@@ -22,11 +22,11 @@ DETECTED_OS = $(shell uname)
 $(NAME): $(OBJ)
 		$(PRINT_OS)
 		$(PRINT) "$(CYAN)making:\t$(NOCOLOR)$(NAME)"
-		$(CC) $(CFLAGS)  $(OBJ) -o $(NAME) libft/libft.a
+		$(CC) $(CFLAGS) $(FFLAGS)  $(OBJ) -o $(NAME) libft/libft.a
 		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(NAME)"
 
 .c.o:
-		$(CC) $(CLFAGS)  -c $< -o $(<:.c=.o) 
+		$(CC) $(CLFAGS)  $(FFLAGS) -c $< -o $(<:.c=.o) 
 
 ###__RULES__###
 all: $(NAME)

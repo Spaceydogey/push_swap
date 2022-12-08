@@ -212,8 +212,6 @@ static void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int 
 	int		last_iter;
 
 	last_iter = iter - 1;
-	if (last_iter <= 0)
-		last_iter = 0;
 	if (is_sorted(stack_a))
 			return ;
 	size = ps_lstsize(*stack_a);
@@ -229,13 +227,14 @@ static void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int 
 	}
 	else
 	{
-		push_all_min(stack_a, stack_b, min, iter);
-		sort_b(stack_a, stack_b);
-		while (min[last_iter + LEN - 1]->pos != ps_lstsize(*stack_a))
+		while (iter >= 0 && min[last_iter + LEN - 1]->pos != ps_lstsize(*stack_a))
 		{
 			ra(stack_a);
 			min[last_iter + LEN - 1]->pos += 1;
 		}	
+		push_all_min(stack_a, stack_b, min, iter);
+		sort_b(stack_a, stack_b);
+		
 		i = 0;
 		// while (i < LEN)
 		// {

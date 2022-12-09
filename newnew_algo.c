@@ -6,7 +6,6 @@ static int	is_in_tab(t_ext **tab, int size, int content)
 	int	k;
 
 	i = -1;
-// 0 1 2 3 ... size
 	while (++i <= size)
 	{
 		if ((tab[i])->val == content)
@@ -157,7 +156,6 @@ static void push_all_min(t_list **stack_a, t_list **stack_b, t_ext **min, int it
 	size = ps_lstsize(*stack_a);
 	if ((iter * LEN) + len >= size)
 		len = size - (iter * LEN);
-	//find_next_min(stack_a, min, len, iter);
 	while (len > 0)
 	{
 		goto_closest(stack_a, min, len, iter);
@@ -215,7 +213,7 @@ static void	sort_a(t_list **stack_a, t_list **stack_b)
 
 static void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int iter_max)
 {
-	 int		k;
+	int		k;
 	int		size;
 	int		last_iter;
 	int		len;
@@ -224,12 +222,15 @@ static void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int 
 	if (last_iter < 0)
 		last_iter = 0;
 	if (is_sorted(stack_a))
-			return ;
+	{
+		ps_lstclear(stack_a);
+		return ;
+	}
 	size = ps_lstsize(*stack_a);
-	// push_all_min(stack_a, stack_b, min, iter);
 	if (iter > iter_max)
 	{
 		sort_a(stack_a, stack_b);
+		ps_lstclear(stack_a);
 		return ;
 	}
 	else
@@ -238,7 +239,7 @@ static void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int 
 		push_all_min(stack_a, stack_b, min, iter);
 		size  = ps_lstsize(*stack_a);
 		find_next_min(stack_a, min, len, iter);
-		while (iter > 0 && iter < iter_max  && min[(last_iter * LEN) + LEN - 1]->pos != size)
+		while (iter > 0 && iter < iter_max && min[(last_iter * LEN) + LEN - 1]->pos != size)
 		{
 			if (min[(last_iter * LEN) + LEN - 1]->pos > size / 2)
 			{
@@ -252,7 +253,6 @@ static void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int 
 				if (min[(last_iter * LEN) + LEN - 1]->pos == -1)
 					min[(last_iter * LEN) + LEN - 1]->pos = size;
 			}
-			
 			// ft_putnbr_fd(ps_lstsize(*stack_a), 1);
 			// write(1,"\t",1);
 			// ft_putnbr_fd(min[(last_iter * LEN) + LEN - 1]->val, 1);
@@ -264,16 +264,6 @@ static void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int 
 		while (++k < size)
 			free(min[k]);
 		sort_b(stack_a, stack_b);
-		
-		
-		//i = 0;
-		// while (i < LEN)
-		// {
-		// 	write(1, "oi\n", 3);
-		// 	ra(stack_a);
-		// 	i++;
-		// }
-		// //push_all_of_b(stack_a, stack_b);
 		iter++;
 	}
 	sort(stack_a, stack_b, min, iter, iter_max);
@@ -284,18 +274,11 @@ void	push_swap(t_list **lst)
 	t_list	*stack_a;
 	t_list	*stack_b;
 	t_ext	**min;
-	int	k;
-	int iter_max;
-	int	iter;
  
 	stack_a = *lst;
 	min = malloc(sizeof(t_ext) * ps_lstsize(stack_a));
 	stack_b = NULL;
-	iter = 0;
-	iter_max = ps_lstsize(stack_a) / LEN;
-	sort(&stack_a, &stack_b, min, iter, iter_max);
+	sort(&stack_a, &stack_b, min, 0, ps_lstsize(stack_a) / LEN);
 	push_all_of_b(&stack_a, &stack_b);
-	// print_lst(&stack_a);
-	k = -1;
 	free(min);
 }

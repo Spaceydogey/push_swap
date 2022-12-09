@@ -21,11 +21,10 @@ void	push(t_list **dst, t_list **src)
 		return ;
 	tmp_content = (*src)->content;
 	tmp_next = (*src)->next;
-	// free(*src);
 	tmp_new = ps_lstnew((tmp_content));
+	free(*src);
 	*src = tmp_next;
 	ps_addfront(dst, tmp_new);
-	free(tmp_new);
 }
 
 void	rotate(t_list **list)

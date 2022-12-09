@@ -14,15 +14,18 @@ void	swap(t_list **list)
 void	push(t_list **dst, t_list **src)
 {
 	t_list	*tmp_new;
-	t_list	*tmp_src;
+	int		tmp_content;
+	t_list	*tmp_next;
 
 	if (ps_lstsize(*src) < 1)
 		return ;
-	tmp_src = *src;
-	tmp_new = ps_lstnew(tmp_src->content);
-	*src = (*src)->next;
-//	free(tmp_src);
+	tmp_content = (*src)->content;
+	tmp_next = (*src)->next;
+	// free(*src);
+	tmp_new = ps_lstnew((tmp_content));
+	*src = tmp_next;
 	ps_addfront(dst, tmp_new);
+	free(tmp_new);
 }
 
 void	rotate(t_list **list)

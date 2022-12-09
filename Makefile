@@ -21,23 +21,26 @@ DETECTED_OS = $(shell uname)
 ###__COMPILATION__###
 $(NAME): $(OBJ)
 		$(PRINT_OS)
+		@make -C libft
 		$(PRINT) "$(CYAN)making:\t$(NOCOLOR)$(NAME)"
-		$(CC) $(CFLAGS) $(FFLAGS)  $(OBJ) -o $(NAME) libft/libft.a
+		$(CC) $(CFLAGS) $(FFLAGS) $(OBJ) -o $(NAME) libft/libft.a
 		$(PRINT) "$(GREEN)done:\t$(NOCOLOR)$(NAME)"
 
 .c.o:
-		$(CC) $(CLFAGS)  $(FFLAGS) -c $< -o $(<:.c=.o) 
+		$(CC) $(CLFAGS) $(FFLAGS) -c $< -o $(<:.c=.o) 
 
 ###__RULES__###
 all: $(NAME)
 
 clean:
+		@make clean -C libft
 		$(RM) $(OBJ)
 
 fclean: clean
+		@make fclean -C libft
 		$(RM) $(NAME)
 
-re :	fclean $(NAME)
+re : fclean $(NAME)
 
 .PHONY: all clean fclean re
 

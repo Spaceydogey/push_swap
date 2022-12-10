@@ -222,15 +222,11 @@ static void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int 
 	if (last_iter < 0)
 		last_iter = 0;
 	if (is_sorted(stack_a))
-	{
-		ps_lstclear(stack_a);
 		return ;
-	}
 	size = ps_lstsize(*stack_a);
 	if (iter > iter_max)
 	{
 		sort_a(stack_a, stack_b);
-		ps_lstclear(stack_a);
 		return ;
 	}
 	else
@@ -274,11 +270,17 @@ void	push_swap(t_list **lst)
 	t_list	*stack_a;
 	t_list	*stack_b;
 	t_ext	**min;
- 
+	int		size;
+
 	stack_a = *lst;
 	min = malloc(sizeof(t_ext) * ps_lstsize(stack_a));
 	stack_b = NULL;
-	sort(&stack_a, &stack_b, min, 0, ps_lstsize(stack_a) / LEN);
+	size = ps_lstsize(stack_a);
+	if (size < LEN)
+		sort_a(&stack_a, &stack_b);
+	else
+		sort(&stack_a, &stack_b, min, 0, size / LEN);
 	push_all_of_b(&stack_a, &stack_b);
+	ps_lstclear(&stack_a);
 	free(min);
 }

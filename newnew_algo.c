@@ -164,25 +164,26 @@ static void push_all_min(t_list **stack_a, t_list **stack_b, t_ext **min, int it
 	}
 }
 
-static void	sort_b(t_list **stack_a, t_list **stack_b)
+static void	sort_b(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_ext	max;
-	int		size;
 
 	max = find_max(stack_b);
-	size = ps_lstsize(*stack_b);
-	
+	// size = ps_lstsize(*stack_b);	
 	if (size == 0)
 		return ;	
 	//if (is_rev_sorted(stack_b) == 1)
 	//	return ;
 	else if (max.pos == 1)
+	{
 		pa(stack_a, stack_b);
+		size -= 1;
+	}
 	else if (max.pos > size / 2)
 		rrb(stack_b);
 	else if (max.pos <= size / 2)
 		rb(stack_b);
-	sort_b(stack_a, stack_b);
+	sort_b(stack_a, stack_b, size);
 }
 
 static void	sort_a(t_list **stack_a, t_list **stack_b)
@@ -259,7 +260,7 @@ static void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int 
 		k = -1;
 		while (++k < size)
 			free(min[k]);
-		sort_b(stack_a, stack_b);
+		sort_b(stack_a, stack_b, ps_lstsize(*stack_b));
 		iter++;
 	}
 	sort(stack_a, stack_b, min, iter, iter_max);

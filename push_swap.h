@@ -6,7 +6,7 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-# define LEN 25
+# define LEN 6
 typedef struct s_list
 {
 	int				content;
@@ -76,7 +76,7 @@ t_ext	find_max(t_list **stack_a);
 t_ext	find_min(t_list **stack_a);
 int		is_sorted(t_list **stack_a);
 int		is_rev_sorted(t_list **stack);
-void push_all_of_b(t_list **stack_a, t_list **stack_b);
+void	push_all_of_b(t_list **stack_a, t_list **stack_b);
 //void    sort(t_list **stack_a, t_list **stack_b);
 ///////////////PARASING/////////////
 t_list	*parsing(int ac, char **av);

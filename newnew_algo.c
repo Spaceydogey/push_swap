@@ -171,21 +171,31 @@ static int push_all_min(t_list **stack_a, t_list **stack_b, t_ext **min, int ite
 static void	sort_b(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_ext	max;
+	t_ext	min;
 
 	max = find_max(stack_b);
-	// size = ps_lstsize(*stack_b);	
+	min = find_min(stack_b);
 	if (size == 0)
 		return ;	
-	//if (is_rev_sorted(stack_b) == 1)
-	//	return ;
+	if (is_rev_sorted(stack_b) == 1)
+	{
+		push_all_of_b(stack_a, stack_b);
+		return ;
+	}
+	else if (min.pos == 1)
+	{
+		pa(stack_a, stack_b);
+		ra(stack_a);
+		size -= 1;
+	}
 	else if (max.pos == 1)
 	{
 		pa(stack_a, stack_b);
 		size -= 1;
 	}
-	else if (max.pos > size / 2)
+	else if (max.pos > (size / 2) + (size % 2))
 		rrb(stack_b);
-	else if (max.pos <= size / 2)
+	else if (max.pos <= (size / 2) + (size % 2))
 		rb(stack_b);
 	sort_b(stack_a, stack_b, size);
 }
@@ -212,9 +222,9 @@ static void	sort_a(t_list **stack_a, t_list **stack_b, int size)
 	}
 	else if (min.pos == 2 && max.pos == size)
 		sa(stack_a);
-	else if (min.pos > size / 2)
+	else if (min.pos > (size / 2) + (size % 2))
 		rra(stack_a);
-	else if (min.pos <= size / 2)
+	else if (min.pos <= (size / 2) + (size % 2))
 		ra(stack_a);
 	sort_a(stack_a, stack_b, size);
 }

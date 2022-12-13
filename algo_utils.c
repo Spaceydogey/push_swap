@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algo_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/13 12:30:39 by hdelmas           #+#    #+#             */
+/*   Updated: 2022/12/13 12:38:15 by hdelmas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
+#include "ps_algo.h"
 
 t_ext	find_max(t_list **stack_a)
 {
@@ -12,7 +25,7 @@ t_ext	find_max(t_list **stack_a)
 		return (res);
 	res.val = tmp->content;
 	res.pos = 1;
-	while(tmp)
+	while (tmp)
 	{
 		i++;
 		if (res.val <= tmp->content)
@@ -37,7 +50,7 @@ t_ext	find_min(t_list **stack_a)
 		return (res);
 	res.val = tmp->content;
 	res.pos = 1;
-	while(tmp)
+	while (tmp)
 	{
 		i++;
 		if (res.val >= tmp->content)
@@ -55,7 +68,6 @@ int	is_sorted(t_list **stack_a)
 	t_list	*tmp;
 
 	tmp = *stack_a;
-
 	while (tmp->next)
 	{
 		if (tmp->content > tmp->next->content)
@@ -79,7 +91,7 @@ int	is_rev_sorted(t_list **stack)
 	return (1);
 }
 
-void push_all_of_b(t_list **stack_a, t_list **stack_b)
+void	push_all_of_b(t_list **stack_a, t_list **stack_b)
 {
 	while (*stack_b)
 		pa(stack_a, stack_b);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/13 13:13:42 by hdelmas           #+#    #+#             */
+/*   Updated: 2022/12/13 13:13:44 by hdelmas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include <stdlib.h>
@@ -6,7 +18,7 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-# define LEN 46
+# define LEN 25
 typedef struct s_list
 {
 	int				content;
@@ -38,7 +50,6 @@ void    rr(t_list **stack_a, t_list **stack_b);
 void    rra(t_list **stack_a);
 void    rrb(t_list **stack_b);
 void    rrr(t_list **stack_a, t_list **stack_b);
-
 //void    sort(t_list **stack_a, t_list **stack_b);
 ///////////////PARASING/////////////
 t_list	*parsing(int ac, char **av);
@@ -71,12 +82,20 @@ void    rrb(t_list **stack_b);
 void    rrr(t_list **stack_a, t_list **stack_b);
 /////////////////ALGO///////////////
 void	push_swap(t_list **lst);
-////////////UTILS_ALGO//////////////
+		   ///////SORT///////
+void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, int iter, int iter_max);
+void	sort_a(t_list **stack_a, t_list **stack_b, int size);
+void	sort_b(t_list **stack_a, t_list **stack_b, int size);
+	       ////UTILS_ALGO////
+int		push_all_min(t_list **stack_a, t_list **stack_b, t_ext **min, int iter);
+int		is_in_tab(t_ext **tab, int size, int content);
 t_ext	find_max(t_list **stack_a);
 t_ext	find_min(t_list **stack_a);
 int		is_sorted(t_list **stack_a);
 int		is_rev_sorted(t_list **stack);
 void	push_all_of_b(t_list **stack_a, t_list **stack_b);
+void	dst(t_ext **ext, int size);
+int		find_next_min(t_list **stack_a, t_ext **min, int iter);
 //void    sort(t_list **stack_a, t_list **stack_b);
 ///////////////PARASING/////////////
 t_list	*parsing(int ac, char **av);

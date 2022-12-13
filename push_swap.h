@@ -6,7 +6,7 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-# define LEN 24
+# define LEN 46
 typedef struct s_list
 {
 	int				content;

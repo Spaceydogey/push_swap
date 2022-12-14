@@ -1,3 +1,4 @@
+.SILENT:
 NAME = libft.a
  
 SRCS = 	ft_isascii.c\

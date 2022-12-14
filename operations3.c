@@ -1,66 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations.c                                       :+:      :+:    :+:   */
+/*   operation3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 13:15:59 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/13 13:16:00 by hdelmas          ###   ########.fr       */
+/*   Created: 2022/12/14 18:52:09 by hdelmas           #+#    #+#             */
+/*   Updated: 2022/12/14 18:52:20 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	sa(t_list **stack_a)
-{
-	swap(stack_a);
-	ft_putendl_fd("sa", 1);
-}
-
-void	sb(t_list	**stack_b)
-{
-	swap(stack_b);
-	ft_putendl_fd("sb", 1);
-}
-
-void	ss(t_list **stack_a, t_list **stack_b)
-{
-	swap(stack_a);
-	swap(stack_b);
-	ft_putendl_fd("ss", 1);
-}
-	
-void	pa(t_list **stack_a, t_list **stack_b)
-{
-	push(stack_a, stack_b);
-	ft_putendl_fd("pa", 1);
-}
-
-void	pb(t_list **stack_a, t_list **stack_b)
-{
-	push(stack_b, stack_a);
-	ft_putendl_fd("pb", 1);
-}
-
-void	ra(t_list **stack_a)
-{
-	rotate(stack_a);
-	ft_putendl_fd("ra", 1);
-}
-
-void	rb(t_list **stack_b)
-{
-	rotate(stack_b);
-	ft_putendl_fd("rb", 1);
-}
-
-void	rr(t_list **stack_a, t_list **stack_b)
-{
-	rotate(stack_a);
-	rotate(stack_b);
-	ft_putendl_fd("rr", 1);
-}
 
 void	rra(t_list **stack_a)
 {

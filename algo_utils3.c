@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:08:32 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/13 13:52:40 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/14 20:23:52 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,66 +80,4 @@ int	push_all_min(t_list **stack_a, t_list **stack_b, t_ext **min, int iter)
 		len--;
 	}
 	return (size - res);
-}
-
-int	find_next_min(t_list **stack_a, t_ext **min, int iter)
-{
-	int		i;
-	int		k;
-	int		size;
-	t_list	*tmp;
-
-	tmp = *stack_a;
-	size = ps_lstsize(*stack_a);
-	if (!tmp)
-		return (-1);
-	k = 0;
-	i = 1;
-	while (k < size)
-	{
-		(min[k]) = malloc(sizeof(t_ext));
-		if (!min[k])
-			return (-1);
-		(min[k])->pos = i;
-		(min[k])->val = tmp->content;
-		dst(&min[k], size);
-		while (tmp)
-		{
-			while (tmp && is_in_tab(min, k - 1, (min[k])->val) == 1)
-			{	
-				tmp = tmp->next;
-				i++;
-				if (tmp)
-				{
-					(min[k])->val = tmp->content;
-					(min[k])->pos = i;
-					dst(&(min[k]), size);
-				}
-			}
-			if (tmp && (min[k])->val >= tmp->content
-				&& is_in_tab(min, k - 1, tmp->content) == 0)
-			{
-				(min[k])->val = tmp->content;
-				(min[k])->pos = i;
-				dst(&(min[k]), size);
-				while (tmp && is_in_tab(min, k, tmp->content) == 1)
-				{	
-					tmp = tmp->next;
-					i++;
-				}
-			}
-			else
-			{
-				if (tmp)
-				{
-					tmp = tmp->next;
-					i++;
-				}
-			}
-		}
-		tmp = *stack_a;
-		k++;
-		i = 1;
-	}
-	return (size);
 }

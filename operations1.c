@@ -1,38 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo_utils2.c                                      :+:      :+:    :+:   */
+/*   operations1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 12:32:58 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/13 13:19:47 by hdelmas          ###   ########.fr       */
+/*   Created: 2022/12/13 13:15:59 by hdelmas           #+#    #+#             */
+/*   Updated: 2022/12/14 18:53:15 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "ps_algo.h"
 
-int	is_in_tab(t_ext **tab, int size, int content)
+void	sa(t_list **stack_a)
 {
-	int	i;
-	int	k;
-
-	i = -1;
-	while (++i <= size)
-	{
-		if ((tab[i])->val == content)
-			return (1);
-	}
-	return (0);
+	swap(stack_a);
+	ft_putendl_fd("sa", 1);
 }
 
-int	dst(int pos, int size)
+void	sb(t_list	**stack_b)
 {
-	t_ext	res;
+	swap(stack_b);
+	ft_putendl_fd("sb", 1);
+}
 
-	res.dst = pos - 1;
-	if (res.dst > size - res.dst)
-		res.dst = size - res.dst;
-	return (res.dst);
+void	ss(t_list **stack_a, t_list **stack_b)
+{
+	swap(stack_a);
+	swap(stack_b);
+	ft_putendl_fd("ss", 1);
+}
+
+void	pa(t_list **stack_a, t_list **stack_b)
+{
+	push(stack_a, stack_b);
+	ft_putendl_fd("pa", 1);
+}
+
+void	pb(t_list **stack_a, t_list **stack_b)
+{
+	push(stack_b, stack_a);
+	ft_putendl_fd("pb", 1);
 }

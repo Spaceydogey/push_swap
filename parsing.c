@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:15:53 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/13 13:15:54 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/14 20:08:32 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	argument_check(char *str)
 {	
 	int	i;
-	
+
 	i = -1;
 	if (str[0] == '\0')
 		return (0);
@@ -43,6 +43,24 @@ int	check_dup(t_list **lst, t_list *new)
 	return (1);
 }
 
+static t_list	*stack_new(t_list **stack_a, t_list **new,
+	long int content, int i)
+{
+	if (i == 1)
+	{
+		*stack_a = ps_lstnew((int)content);
+		if (!stack_a)
+			return (ps_lstclear(stack_a));
+	}
+	else
+	{
+		*new = ps_lstnew((int)content);
+		if (!new)
+			return (ps_lstclear(stack_a));
+		ps_addback(stack_a, *new);
+	}
+}
+
 t_list	*parsing(int ac, char **av)
 {
 	int			i;
@@ -59,34 +77,10 @@ t_list	*parsing(int ac, char **av)
 		content = ps_atoi(av[i]);
 		if (content > INT_MAX || content < INT_MIN)
 			return (ps_lstclear(&stack_a));
-		if (i == 1)
-		{
-			stack_a = ps_lstnew((int)content);
-			if (!stack_a)
-				return (ps_lstclear(&stack_a));
-		}
-		else
-		{
-			new = ps_lstnew((int)content);
-			if (!new)
-				return (ps_lstclear(&stack_a));
-			ps_addback(&stack_a, new);
-		}
-		//printf(">%d\n",new->content);
+		if (! stack_new(&stack_a, &new, content, i))
+			return (NULL);
 		if (i > 1 && check_dup(&stack_a, new) == 0)
 			return (ps_lstclear(&stack_a));
 	}
 	return (stack_a);
-}
-
-void	print_lst(t_list **lst)
-{	
-	t_list	*tmp;
-
-	tmp = *lst;
-	while (tmp)
-	{
-		printf("%d\n", tmp->content);
-		tmp = tmp->next;
-	}
 }

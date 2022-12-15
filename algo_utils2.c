@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:32:58 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/13 13:19:47 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/15 13:37:19 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int	is_in_tab(t_ext **tab, int size, int content)
 {
 	int	i;
-	int	k;
 
 	i = -1;
 	while (++i <= size)
@@ -31,7 +30,7 @@ int	dst(int pos, int size)
 {
 	t_ext	res;
 
-	res.dst = pos - 1;
+	res.dst = pos - 1; 
 	if (res.dst > size - res.dst)
 		res.dst = size - res.dst;
 	return (res.dst);

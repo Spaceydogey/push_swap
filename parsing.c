@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:15:53 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/14 20:08:32 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/15 09:15:46 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static t_list	*stack_new(t_list **stack_a, t_list **new,
 			return (ps_lstclear(stack_a));
 		ps_addback(stack_a, *new);
 	}
+	return (*stack_a);
 }
 
 t_list	*parsing(int ac, char **av)

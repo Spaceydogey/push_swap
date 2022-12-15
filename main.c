@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:24 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/14 16:44:16 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/15 12:15:37 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	push_swap(t_list **lst)
 		sort(&stack_a, &stack_b, min, iter);
 	push_all_of_b(&stack_a, &stack_b);
 	ps_lstclear(&stack_a);
+	// k = -1;
+	// // while (++k < size)
+	// // 	free(min[k]);
 	free(min);
 }
 
@@ -49,6 +52,15 @@ int	main(int ac, char **av)
 		ft_putendl_fd("Error\n", 2);
 		return (1);
 	}
+	// int size = ps_lstsize(stack_a);
+	// t_ext **min  = malloc(sizeof(t_ext) * size);
+	// find_next_min(&stack_a, min, 0);
+	// find_next_min(&stack_a, min, 1);
+	// int k = -1;
+	// while (++k < LEN * 2)
+	// {
+	// 	printf("%d\n", (min[k])->val);
+	// }
 	push_swap(&stack_a);
 	return (0);
 }

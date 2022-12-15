@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:24 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 16:34:48 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/15 18:45:49 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	push_swap(t_list **lst)
 	stack_b = NULL;
 	iter.iter = 0;
 	iter.iter_max = size / LEN;
+	// if (size % LEN > 0)
+	// 	iter.iter_max += 1;
 	if (size < LEN)
 		sort_a(&stack_a, &stack_b, size);
 	else

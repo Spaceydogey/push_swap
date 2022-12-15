@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:42 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 17:03:53 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/15 17:57:05 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-# define LEN 45
+# define LEN 26
 typedef struct s_list
 {
 	int				content;
@@ -37,6 +37,7 @@ typedef struct	s_iter
 	int	iter;
 	int	iter_max;
 	int	last_iter;
+	int	len;
 } t_iter;
 
 ///////////////OPERATION/////////////

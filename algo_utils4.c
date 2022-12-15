@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:23:41 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 17:01:13 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/15 19:00:05 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,6 @@ void	set_min(t_ext **min, t_list *stack, int pos, int size)
 		(*min)->pos = pos;
 		(*min)->val = stack->content;
 		(*min)->dst = dst((*min)->pos, size);
-}
-
-void	update_min(t_ext **min, int content, int pos, int size)
-{
-	int	i;
-
-	i = -1;
-	while (++i < LEN)
-	{
-		if ((min[i])->val == content)
-		{
-			(min[i])->pos = pos;
-			(min[i])->dst = dst(pos, size);
-			break ;
-		}
-	}
 }
 
 static t_list	*ps_next(t_list **lst, int *i)
@@ -79,10 +63,15 @@ int	find_next_min(t_list **stack_a, t_ext **min, int iter)
 	int		i;
 	int		k;
 	int		size;
+	int		len;
 
 	size = ps_lstsize(*stack_a);
-	k = (iter * LEN) - 1;
-	while (++k < LEN + (iter * LEN))
+	len = LEN;
+	if ((LEN * iter)  > size)//
+		len = size - (LEN * iter + LEN);
+	k = (iter * len) - 1;
+	printf("%d, %d\n", k, iter * len + len);
+	while (++k < iter * len + len)
 	{
 		(min[k]) = malloc(sizeof(t_ext));
 		if (!min[k])

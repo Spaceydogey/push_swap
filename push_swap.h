@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:42 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 15:35:09 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/15 17:03:53 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-# define LEN 25
+# define LEN 45
 typedef struct s_list
 {
 	int				content;
@@ -30,7 +30,6 @@ typedef struct	s_ext
 	int				val;
 	int				pos;
 	int 			dst;
-	struct s_ext	*next;
 } t_ext;
 
 typedef struct	s_iter
@@ -99,6 +98,7 @@ int		dst(int pos, int size);
 int		find_next_min(t_list **stack_a, t_ext **min, int iter);
 void	set_min(t_ext **min, t_list *stack, int pos, int size);
 void	update_min(t_ext **min, int content, int pos, int size);
+void	update_all_min(t_list **stack_a, t_ext **min, int iter, int size);
 //void    sort(t_list **stack_a, t_list **stack_b);
 ///////////////PARASING/////////////
 t_list	*parsing(int ac, char **av);

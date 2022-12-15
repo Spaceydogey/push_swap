@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:32:58 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 13:37:19 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/15 16:34:27 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	dst(int pos, int size)
 {
 	t_ext	res;
 
-	res.dst = pos - 1; 
+	res.dst = pos - 1;
 	if (res.dst > size - res.dst)
 		res.dst = size - res.dst;
 	return (res.dst);

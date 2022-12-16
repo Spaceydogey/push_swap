@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:08:32 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 18:56:28 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/16 16:17:34 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static void	goto_closest(t_list **stack_a, t_ext **min, int len, int iter)
 	size = ps_lstsize(*stack_a);
 	if (size == -1)
 		return ;
-	if ((iter * LEN) + len >= size)
-		len = size - (iter * LEN);
 	update_all_min(stack_a, min, iter, size);
 	closest = get_closest_min(min, k, len, iter);
 	while (closest.dst > 0)

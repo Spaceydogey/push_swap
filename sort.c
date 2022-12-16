@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:08:29 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 18:59:55 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/16 16:23:39 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	move_a(t_list **stack_a, t_ext **min, t_iter iter)
 		{
 			ra(stack_a);
 			min[(iter.last_iter * len) + len - 1]->pos -= 1;
-			if (min[(iter.last_iter * len) + len - 1]->pos == -1)
+			if (min[(iter.last_iter * len) + len - 1]->pos == 0)
 				min[(iter.last_iter * len) + len - 1]->pos = size;
 		}
 	}

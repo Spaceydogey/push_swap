@@ -33,11 +33,13 @@ void	push_swap(t_list **lst)
 	stack_a = *lst;
 	size = ps_lstsize(stack_a);
 	min = malloc(sizeof(t_ext) * size);
+	if (!min)
+		return ;
 	stack_b = NULL;
 	iter.iter = 0;
 	iter.iter_max = size / LEN;
-	// if (size % LEN > 0)
-	// 	iter.iter_max += 1;
+	if (size % LEN > 0)
+		iter.iter_max += 1;
 	if (size < LEN)
 		sort_a(&stack_a, &stack_b, size);
 	else

@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:23:41 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 19:00:05 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/16 23:22:05 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,17 @@ int	find_next_min(t_list **stack_a, t_ext **min, int iter)
 
 	size = ps_lstsize(*stack_a);
 	len = LEN;
-	if ((LEN * iter)  > size)//
-		len = size - (LEN * iter + LEN);
-	k = (iter * len) - 1;
-	printf("%d, %d\n", k, iter * len + len);
-	while (++k < iter * len + len)
+	if ((LEN * iter) + len > size)//
+		len = size - (LEN * iter);
+	k = (iter * LEN) - 1;
+	printf("%d, %d\n", k, iter * LEN + len);//
+	while (++k < iter * LEN + len)
 	{
 		(min[k]) = malloc(sizeof(t_ext));
 		if (!min[k])
 			return (-1);
 		set_all_min(stack_a, min, size, k);
+		// printf("min val : %d\n",min[k]->val);
 	}	
 	return (size);
 }

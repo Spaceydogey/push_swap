@@ -6,28 +6,29 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:08:32 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/16 23:22:22 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/17 18:48:03 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_ext	get_closest_min(t_ext **min, int k, int len, int iter)
+static t_ext	*get_closest_min(t_ext **min, int k, int len, int iter)
 {
-	t_ext	closest;
+	t_ext	*closest;
 	int		save;
 
 	k = 0;
 	save = k;
-	closest.dst = INT_MAX;
+	closest = malloc(sizeof(t_ext));
+	closest->dst = INT_MAX;
 	while (k < len)
 	{
-		if ((min[k])->dst < closest.dst && (min[k])->dst != -1)
+		if ((min[k])->dst < closest->dst && (min[k])->dst != -1)
 		{
-			closest.val = (min[k])->val;
-			closest.dst = (min[k])->dst;
-			closest.pos = (min[k])->pos;
-			// printf("while\tval\tdst\tpos\n\t%d\t%d\t%d\n", closest.val, closest.dst, closest.pos);
+			closest->val = (min[k])->val;
+			closest->dst = (min[k])->dst;
+			closest->pos = (min[k])->pos;
+			// printf("while\tval\tdst\tpos\n\t%d\t%d\t%d\n", closest->val, closest->dst, closest->pos);
 			save = k;
 		}
 		k++;
@@ -39,7 +40,7 @@ static t_ext	get_closest_min(t_ext **min, int k, int len, int iter)
 static void	goto_closest(t_list **stack_a, t_ext **min, int len, int iter)
 {
 	int		k;
-	t_ext	closest;
+	t_ext	*closest;
 	int		size;
 
 
@@ -48,30 +49,51 @@ static void	goto_closest(t_list **stack_a, t_ext **min, int len, int iter)
 	if (size == -1)
 		return ;
 		t_list	*tmp = *stack_a;
-		// while (tmp)
+		// // while (tmp)
+		// // {
+		// // 	printf(" prevstack_a : %d\n", tmp->content);
+		// // 	tmp = tmp->next;
+		// // }
+		int i = 1;
+		// while (++i < k + len )
 		// {
-		// 	printf(" prevstack_a : %d\n", tmp->content);
+		// 	printf(" prev min : %d\n", (min[i])->val);
 		// 	tmp = tmp->next;
 		// }
 	update_all_min(stack_a, min, iter, size);
+	// i = -1;
+	// while (++i < k + len )
+	// {
+	// 	printf(" after min : %d\n", (min[i])->val);
+	// 	tmp = tmp->next;
+	// }
+	closest = get_closest_min(&(min[k]), k, len, iter);
+	// closest = get_closest_min(&(min[k]), k, len, iter);
+	// update_all_min(stack_a, min, iter, size);
+
 	// tmp = *stack_a;
+	// if (closest->val == 97)
+	// {
+	// 		 printf("val\tdst\tpos\n%d\t%d\t%d\n", closest->val, closest->dst, closest->pos);
 	// 	while (tmp)
 	// 	{
-	// 		printf("stack_a : %d\n", tmp->content);
+	// 		printf("stack_a :%d, %d\n", i, tmp->content);
 	// 		tmp = tmp->next;
+	// 		i++;
 	// 	}
-	closest = get_closest_min(&(min[k]), k, len, iter);
-	// update_all_min(stack_a, min, iter, size);
-	// printf("val\tdst\tpos\n%d\t%d\t%d\n", closest.val, closest.dst, closest.pos);
-	while (closest.dst > 0)
+	// }
+	while (closest->dst > 0)
 	{
-		if (closest.pos <= (size / 2) + (size % 2))
+		// if ((*stack_a)->content == closest->val)
+		// 	break ;
+		if (closest->pos <= (size / 2) + (size % 2))
 			ra(stack_a);
 		else
 			rra(stack_a);
-		// printf("while\tval\tdst\tpos\n\t%d\t%d\t%d\n", closest.val, closest.dst, closest.pos);
-		closest.dst -= 1;
+		//printf("while\tval\tdst\tpos\tstack\n\t\t%d\t%d\t%d\t%d\n", closest->val, closest->dst, closest->pos,(*stack_a)->content);
+		closest->dst -= 1;
 	}
+	free(closest);
 }
 
 int	push_all_min(t_list **stack_a, t_list **stack_b, t_ext **min, int iter)

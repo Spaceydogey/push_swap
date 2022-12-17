@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:42 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/17 18:55:55 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/17 19:35:28 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-# define LEN 26
+# define LEN 54
 typedef struct s_list
 {
 	int				content;
@@ -98,7 +98,7 @@ void	push_all_of_b(t_list **stack_a, t_list **stack_b);
 int		dst(int pos, int size);
 int		find_next_min(t_list **stack_a, t_ext **min, int iter);
 void	set_min(t_ext **min, t_list *stack, int pos, int size);
-void	update_min(t_ext **min, int content, int pos, int size, int len);
+void	update_min(t_ext **min, int content, int pos, int size);
 void	update_all_min(t_list **stack_a, t_ext **min, int iter, int size);
 //void    sort(t_list **stack_a, t_list **stack_b);
 ///////////////PARASING/////////////

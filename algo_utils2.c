@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:32:58 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/17 18:44:08 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/17 19:03:44 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	dst(int pos, int size)
 	return (res.dst);
 }
 
-void	update_min(t_ext **min, int content, int pos, int size, int len)
+void	update_min(t_ext **min, int content, int pos, int size)
 {
 	int	i;
 
@@ -47,8 +47,6 @@ void	update_min(t_ext **min, int content, int pos, int size, int len)
 		{
 			(min[i])->pos = pos;
 			(min[i])->dst = dst(pos, size);
-			// if (content == 97)
-			// 	printf("minval\tmindst\tminpos\n%d\t\t%d\t\t%d\n", (min[i])->val, (min[i])->dst, (min[i])->pos);
 			break ;
 		}
 	}

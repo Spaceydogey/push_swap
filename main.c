@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:24 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 18:45:49 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/17 19:31:47 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	push_swap(t_list **lst)
 		sort(&stack_a, &stack_b, min, iter);
 	push_all_of_b(&stack_a, &stack_b);
 	ps_lstclear(&stack_a);
-	free_min(min, size);
+	free_min(min, LEN * iter.iter_max);
 }
 
 int	main(int ac, char **av)

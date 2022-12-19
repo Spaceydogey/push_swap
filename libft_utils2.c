@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   libft_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 10:59:27 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/10/19 15:08:50 by hdelmas          ###   ########.fr       */
+/*   Created: 2022/12/19 09:55:40 by hdelmas           #+#    #+#             */
+/*   Updated: 2022/12/19 10:02:40 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+size_t	ft_strlen(const char *s)
 {
-	t_list	*temp;
+	size_t	i;
 
-	if (!lst || !del)
-		return ;
-	if (!*lst)
-	{
-		free(*lst);
-		lst = NULL;
-		return ;
-	}
-	temp = *lst;
-	*lst = temp->next;
-	ft_lstdelone(temp, del);
-	ft_lstclear(lst, del);
+	i = 0;
+	while (s[i])
+		++i;
+	return (i);
+}
+
+int	ft_isdigit(int c)
+{
+	if ((c >= 48 && c <= 57))
+		return (1);
+	return (0);
 }

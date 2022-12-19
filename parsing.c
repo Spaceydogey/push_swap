@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:15:53 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/15 09:15:46 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/19 11:01:33 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_list	*parsing(int ac, char **av)
 		content = ps_atoi(av[i]);
 		if (content > INT_MAX || content < INT_MIN)
 			return (ps_lstclear(&stack_a));
-		if (! stack_new(&stack_a, &new, content, i))
+		if (!stack_new(&stack_a, &new, content, i))
 			return (NULL);
 		if (i > 1 && check_dup(&stack_a, new) == 0)
 			return (ps_lstclear(&stack_a));

@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:42 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/17 19:35:28 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/19 10:02:51 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdio.h>
-# include "libft/libft.h"
+//# include "libft/libft.h"
 
 # define LEN 54
 typedef struct s_list
@@ -104,9 +104,15 @@ void	update_all_min(t_list **stack_a, t_ext **min, int iter, int size);
 ///////////////PARASING/////////////
 t_list	*parsing(int ac, char **av);
 /////////////////LIST////////////////
+size_t	ft_strlen(const char *s);
+int		ft_isdigit(int c);
 void    ps_addfront(t_list **list, t_list *new);
 t_list  *ps_lstclear(t_list **list);
 long	ps_atoi(const char *nptr);
+char	**ft_split(char const *s, char c);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putstr_fd(char *s, int fd);
 int		ps_lstsize(t_list *lst);
 void	ps_addback(t_list **list, t_list *new);
 t_list	*ps_lstnew(int content);

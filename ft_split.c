@@ -6,11 +6,11 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:04:24 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/10/19 15:24:43 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/19 09:56:46 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 static size_t	word_count(char const *s, char c)
 {

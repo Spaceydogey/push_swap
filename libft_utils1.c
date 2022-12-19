@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_utils.c                                      :+:      :+:    :+:   */
+/*   libft_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:50:14 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/14 18:50:15 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/19 10:00:27 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,27 @@ long	ps_atoi(const char *nptr)
 		nptr++;
 	}
 	return ((res * sign));
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	size_t	s_len;
+
+	if (!s)
+		return ;
+	s_len = ft_strlen(s);
+	write(fd, s, s_len);
+}
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	if (!s)
+		return ;
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }

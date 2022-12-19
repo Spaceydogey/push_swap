@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:24 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/19 11:44:35 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/19 17:43:24 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	free_min(t_ext **min, int size)
 	k = -1;
 	while (++k < size)
 		free(min[k]);
-	free(min);
 }
 
 void	push_swap(t_list **lst)
@@ -36,9 +35,10 @@ void	push_swap(t_list **lst)
 	if (!min)
 		return ;
 	stack_b = NULL;
+	iter.chunk_size = find_best_chunk_size(stack_a);
 	iter.iter = 0;
-	iter.iter_max = size / LEN;
-	if (size % LEN > 0)
+	iter.iter_max = size / iter.chunk_size;
+	if (size % iter.chunk_size > 0)
 		iter.iter_max += 1;
 	if (size < LEN)
 		sort_a(&stack_a, &stack_b, size);
@@ -46,7 +46,9 @@ void	push_swap(t_list **lst)
 		sort(&stack_a, &stack_b, min, iter);
 	push_all_of_b(&stack_a, &stack_b);
 	ps_lstclear(&stack_a);
-	free_min(min, LEN * iter.iter_max);
+	if (size > LEN)
+		free_min(min, iter.chunk_size * iter.iter_max);
+	free(min);
 }
 static void	free_all(char **tab, char **save_av, int size, int ac)
 {
@@ -56,9 +58,7 @@ static void	free_all(char **tab, char **save_av, int size, int ac)
 	if (ac == 2)
 	{
 		while (tab[i] && i < size)
-		{
 			free(tab[i++]);
-		}
 		free(tab);
 		free(save_av);
 	}
@@ -70,8 +70,9 @@ int	main(int ac, char **av)
 	char	**save_av;
 	int		save_ac;
 	int		i;
+	int 	chunk_size;
 	
-	if (ac < 1)
+	if (ac <= 1)
 		return (1);
 	save_av = av;
 	save_ac = ac;

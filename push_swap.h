@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:42 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/19 10:02:51 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/19 17:43:44 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_iter
 	int	iter_max;
 	int	last_iter;
 	int	len;
+	int	chunk_size;
 } t_iter;
 
 ///////////////OPERATION/////////////
@@ -83,6 +84,7 @@ void    rrb(t_list **stack_b);
 void    rrr(t_list **stack_a, t_list **stack_b);
 /////////////////ALGO///////////////
 void	push_swap(t_list **lst);
+int		find_best_chunk_size(stack_a);
 		   ///////SORT///////
 void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, t_iter iter);
 void	sort_a(t_list **stack_a, t_list **stack_b, int size);
@@ -100,7 +102,6 @@ int		find_next_min(t_list **stack_a, t_ext **min, int iter);
 void	set_min(t_ext **min, t_list *stack, int pos, int size);
 void	update_min(t_ext **min, int content, int pos, int size);
 void	update_all_min(t_list **stack_a, t_ext **min, int iter, int size);
-//void    sort(t_list **stack_a, t_list **stack_b);
 ///////////////PARASING/////////////
 t_list	*parsing(int ac, char **av);
 /////////////////LIST////////////////

@@ -6,13 +6,13 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:08:29 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/17 19:12:38 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/19 18:05:55 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	update_all_min(t_list **stack_a, t_ext **min, int iter, int size)
+void	update_all_min(t_list **stack_a, t_ext **min, t_iter iter, int size)
 {
 	t_list	*tmp;
 	int		i;
@@ -21,8 +21,8 @@ void	update_all_min(t_list **stack_a, t_ext **min, int iter, int size)
 
 	tmp = *stack_a;
 	i = 0;
-	len = LEN;
-	k = iter * LEN;
+	len = iter.chunk_size;
+	k = iter.iter * iter.chunk_size;
 	while (++i <= size)
 	{
 		if (is_in_tab(&min[k], len - 1, tmp->content) == 1)
@@ -36,23 +36,24 @@ static void	move_a(t_list **stack_a, t_ext **min, t_iter iter)
 	int		size;
 	int		len;
 
+	len = iter.chunk_size;
 	size = ps_lstsize(*stack_a);
-	update_all_min(stack_a, min, iter.last_iter, size);
+	update_all_min(stack_a, min, iter, size); // iter,lastiter si pas ok go static et go algo utils 3
 	while (iter.iter > 0 && iter.iter < iter.iter_max
-		&& min[(iter.last_iter * LEN) + LEN - 1]->pos != size)
+		&& min[(iter.last_iter * len) + len - 1]->pos != size)
 	{
-		if (min[(iter.last_iter * LEN) + LEN - 1]->pos
+		if (min[(iter.last_iter * len) + len - 1]->pos
 			> (size / 2) + (size % 2))
 		{
 			rra(stack_a);
-			min[(iter.last_iter * LEN) + LEN - 1]->pos += 1;
+			min[(iter.last_iter * len) + len - 1]->pos += 1;
 		}
 		else
 		{
 			ra(stack_a);
-			min[(iter.last_iter * LEN) + LEN - 1]->pos -= 1;
-			if (min[(iter.last_iter * LEN) + LEN - 1]->pos == 0)
-				min[(iter.last_iter * LEN) + LEN - 1]->pos = size;
+			min[(iter.last_iter * len) + len - 1]->pos -= 1;
+			if (min[(iter.last_iter * len) + len - 1]->pos == 0)
+				min[(iter.last_iter * len) + len - 1]->pos = size;
 		}
 	}
 }

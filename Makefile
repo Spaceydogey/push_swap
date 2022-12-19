@@ -2,7 +2,7 @@
 NAME = push_swap
 
 FILES = sort.c algo_utils1.c algo_utils2.c algo_utils3.c algo_utils4.c sort_b.c sort_a.c libft_utils1.c libft_utils2.c list_utils1.c\
-		list_utils2.c main.c  mouvement.c operations1.c operations2.c operations3.c parsing.c ft_split.c
+		list_utils2.c main.c  mouvement.c operations1.c operations2.c operations3.c parsing.c ft_split.c chunk.c
 
 #SRCS = $(addprefix src, $(FILES))
 SRCS = $(FILES)

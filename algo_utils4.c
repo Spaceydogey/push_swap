@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:23:41 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/17 19:02:42 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/20 09:27:34 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	set_all_min(t_list **stack_a, t_ext **min, int size, int k)
 	}
 }
 
-int	find_next_min(t_list **stack_a, t_ext **min, int iter)
+int	find_next_min(t_list **stack_a, t_ext **min, t_iter iter)
 {
 	int		i;
 	int		k;
@@ -66,9 +66,9 @@ int	find_next_min(t_list **stack_a, t_ext **min, int iter)
 	int		len;
 
 	size = ps_lstsize(*stack_a);
-	len = LEN;
-	k = (iter * LEN) - 1;
-	while (++k < iter * LEN + LEN)
+	len = iter.chunk_size;
+	k = (iter.iter * iter.chunk_size) - 1;
+	while (++k < iter.iter * iter.chunk_size + iter.chunk_size)
 	{
 		(min[k]) = malloc(sizeof(t_ext));
 		if (!min[k])

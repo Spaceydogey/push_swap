@@ -6,12 +6,11 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:32:58 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/17 19:03:44 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/20 14:56:02 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "ps_algo.h"
 
 int	is_in_tab(t_ext **tab, int size, int content)
 {
@@ -36,17 +35,17 @@ int	dst(int pos, int size)
 	return (res.dst);
 }
 
-void	update_min(t_ext **min, int content, int pos, int size)
+void	update_min(t_ext **min, int content, t_incr incr, t_iter iter)
 {
 	int	i;
 
 	i = -1;
-	while (++i < LEN)
+	while (++i < iter.chunk_size)
 	{
 		if ((min[i])->val == content)
 		{
-			(min[i])->pos = pos;
-			(min[i])->dst = dst(pos, size);
+			(min[i])->pos = incr.i;
+			(min[i])->dst = dst(incr.i, incr.max);
 			break ;
 		}
 	}

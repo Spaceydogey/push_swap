@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo_utils3.c                                      :+:      :+:    :+:   */
+/*   chunk3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 13:08:32 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/20 14:56:21 by hdelmas          ###   ########.fr       */
+/*   Created: 2022/12/20 11:41:18 by hdelmas           #+#    #+#             */
+/*   Updated: 2022/12/20 14:59:25 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "find_best_chunk.h"
 
 static void	update_all_min(t_list **stack_a, t_ext **min, t_iter iter, int size)
 {
@@ -34,69 +34,47 @@ static void	update_all_min(t_list **stack_a, t_ext **min, t_iter iter, int size)
 	}
 }
 
-t_ext	*get_closest_min(t_ext **min, int k, int len)
-{
-	t_ext	*closest;
-	int		save;
-
-	k = 0;
-	save = k;
-	closest = malloc(sizeof(t_ext));
-	closest->dst = INT_MAX;
-	while (k < len)
-	{
-		if ((min[k])->dst < closest->dst && (min[k])->dst != -1)
-		{
-			closest->val = (min[k])->val;
-			closest->dst = (min[k])->dst;
-			closest->pos = (min[k])->pos;
-			save = k;
-		}
-		k++;
-	}
-	(min[save])->dst = -1;
-	return (closest);
-}
-
-static void	goto_closest(t_list **stack_a, t_ext **min, int len, t_iter iter)
+static int	goto_closest(t_list **stack_a, t_ext **min, int len, t_iter iter)
 {
 	int		k;
 	t_ext	*closest;
 	int		size;
+	int		count;
 
 	k = (iter.iter * iter.chunk_size);
 	size = ps_lstsize(*stack_a);
 	if (size == -1)
-		return ;
+		return (-1);
 	update_all_min(stack_a, min, iter, size);
 	closest = get_closest_min(&(min[k]), k, len);
+	count = 0;
 	while (closest->dst > 0)
 	{
 		if (closest->pos <= (size / 2) + (size % 2))
-			ra(stack_a);
+			ra_chunk(stack_a, &count);
 		else
-			rra(stack_a);
+			rra_chunk(stack_a, &count);
 		closest->dst -= 1;
 	}
 	free(closest);
+	return (count);
 }
 
-int	push_all_min(t_list **stack_a, t_list **stack_b, t_ext **min, t_iter iter)
+void	test_push_all_min(t_stacks stack, t_ext **min, t_iter iter, int *count)
 {
 	int		len;
 	int		size;
 	int		i;
 
 	len = iter.chunk_size;
-	size = ps_lstsize(*stack_a);
+	size = ps_lstsize(*stack.stack_a);
 	if ((iter.iter * iter.chunk_size) + len > size)
 		len = size - (iter.iter * iter.chunk_size);
 	i = len;
 	while (i > 0)
 	{
-		goto_closest(stack_a, min, len, iter);
-		pb(stack_a, stack_b);
+		*count += goto_closest(stack.stack_a, min, len, iter);
+		pb_chunk(stack.stack_a, stack.stack_b, count);
 		i--;
 	}
-	return (size - len);
 }

@@ -6,12 +6,11 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:30:39 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/14 19:15:13 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/20 11:58:26 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "ps_algo.h"
 
 t_ext	find_max(t_list **stack_a)
 {

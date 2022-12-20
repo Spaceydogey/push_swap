@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:42 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/19 17:43:44 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/20 14:56:14 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,15 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdio.h>
-//# include "libft/libft.h"
 
-# define LEN 54
+# define LEN 25
+
+typedef struct s_incr
+{
+	int	i;
+	int	max;
+} t_incr;
+
 typedef struct s_list
 {
 	int				content;
@@ -83,14 +89,15 @@ void    rra(t_list **stack_a);
 void    rrb(t_list **stack_b);
 void    rrr(t_list **stack_a, t_list **stack_b);
 /////////////////ALGO///////////////
+t_ext	*get_closest_min(t_ext **min, int k, int len);
 void	push_swap(t_list **lst);
-int		find_best_chunk_size(stack_a);
+int		find_best_chunk_size(t_list **stack);
 		   ///////SORT///////
 void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, t_iter iter);
 void	sort_a(t_list **stack_a, t_list **stack_b, int size);
 void	sort_b(t_list **stack_a, t_list **stack_b, int size);
 	       ////UTILS_ALGO////
-int		push_all_min(t_list **stack_a, t_list **stack_b, t_ext **min, int iter);
+int		push_all_min(t_list **stack_a, t_list **stack_b, t_ext **min, t_iter iter);
 int		is_in_tab(t_ext **tab, int size, int content);
 t_ext	find_max(t_list **stack_a);
 t_ext	find_min(t_list **stack_a);
@@ -98,10 +105,11 @@ int		is_sorted(t_list **stack_a);
 int		is_rev_sorted(t_list **stack);
 void	push_all_of_b(t_list **stack_a, t_list **stack_b);
 int		dst(int pos, int size);
-int		find_next_min(t_list **stack_a, t_ext **min, int iter);
+int		find_next_min(t_list **stack_a, t_ext **min, t_iter iter);
 void	set_min(t_ext **min, t_list *stack, int pos, int size);
-void	update_min(t_ext **min, int content, int pos, int size);
-void	update_all_min(t_list **stack_a, t_ext **min, int iter, int size);
+void	update_min(t_ext **min, int content, t_incr incr, t_iter iter);
+void	free_min(t_ext **min, int size);
+// void	update_all_min(t_list **stack_a, t_ext **min, t_iter iter, int size);
 ///////////////PARASING/////////////
 t_list	*parsing(int ac, char **av);
 /////////////////LIST////////////////
@@ -118,6 +126,4 @@ int		ps_lstsize(t_list *lst);
 void	ps_addback(t_list **list, t_list *new);
 t_list	*ps_lstnew(int content);
 t_list	*ps_lstlast(t_list *list);
-////////////////////////////////////
-int	merge(t_list **stack_a, t_ext **min, int iter);
 #endif

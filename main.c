@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:24 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/19 17:43:24 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/20 16:01:33 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void	push_swap(t_list **lst)
 	if (!min)
 		return ;
 	stack_b = NULL;
-	iter.chunk_size = find_best_chunk_size(stack_a);
+	// iter.chunk_size = find_best_chunk_size(&stack_a);
+	// printf("%d\n", iter.chunk_size);
+	iter.chunk_size = 25;
 	iter.iter = 0;
 	iter.iter_max = size / iter.chunk_size;
 	if (size % iter.chunk_size > 0)
@@ -50,6 +52,7 @@ void	push_swap(t_list **lst)
 		free_min(min, iter.chunk_size * iter.iter_max);
 	free(min);
 }
+
 static void	free_all(char **tab, char **save_av, int size, int ac)
 {
 	int	i;
@@ -63,6 +66,7 @@ static void	free_all(char **tab, char **save_av, int size, int ac)
 		free(save_av);
 	}
 }
+
 int	main(int ac, char **av)
 {
 	t_list	*stack_a;

@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:47:31 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/20 15:59:24 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/20 18:43:40 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ static int	*test_chunk_size(t_list **lst, int chunk_size)
 	if (size % iter.chunk_size > 0)
 		iter.iter_max += 1;
 	test_sort(stack, min, iter, res);
+	// printf(">res :%d\n", *res);
 	test_push_all_of_b(stack.stack_a, stack.stack_b, res);
 	free_min(min, iter.chunk_size * iter.iter_max);
 	free(min);
@@ -106,29 +107,56 @@ void	test_push_all_of_b(t_list **stack_a, t_list **stack_b, int *count)
 		pa_chunk(stack_a, stack_b, count);
 }
 
-int	find_best_chunk_size(t_list **stack)
+// int	find_best_chunk_size(t_list **stack)
+// {
+// 	t_list	*tmp;
+// 	int		chunk_size;
+// 	int		min_op;
+// 	int		*op;
+// 	int		res;
+
+// 	chunk_size = 10;
+// 	tmp = *stack;
+// 	min_op = INT_MAX;
+// 	while (++chunk_size <= 70)
+// 	{
+// 		*stack = tmp;
+// 		op = test_chunk_size(stack, 25);
+// 		// if (is_sorted(stack) == 1)
+// 		// 	return (0);
+// 		printf("%d\n", *op);//
+// 		if (min_op > *op)
+// 		{
+// 			res = chunk_size;
+// 			min_op = *op;
+// 		}
+// 		free(op);
+// 	}
+// 	return (res);
+// }
+
+int	find_best_chunk_size(t_list **stack, int chunk_size, int min_op, int res)
 {
 	t_list	*tmp;
-	int		chunk_size;
-	int		min_op;
+	// int		chunk_size;
+	// int		min_op;
 	int		*op;
-	int		res;
-
-	chunk_size = 10;
-
+	// int		res;
+	if (chunk_size > 30)
+		return (res);
+	tmp = *stack;
 	min_op = INT_MAX;
-	while (++chunk_size <= 70)
+	op = test_chunk_size(&tmp, 25);
+		// if (is_sorted(stack) == 1)
+		// 	return (0);
+	printf("%d\n", *op);
+	chunk_size++;
+	find_best_chunk_size(stack, chunk_size, min_op, res);
+	if (min_op > *op)
 	{
-		tmp = *stack;
-		op = test_chunk_size(&tmp, chunk_size);
-		// printf("%d\n", *op);
-		if (min_op > *op)
-		{
-			res = chunk_size;
-			
-			min_op = *op;
-		}
-		free(op);
+		res = chunk_size;
+		min_op = *op;
 	}
+	free(op);
 	return (res);
 }

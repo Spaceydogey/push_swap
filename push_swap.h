@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:42 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/20 14:56:14 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/20 18:42:41 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void    rrr(t_list **stack_a, t_list **stack_b);
 /////////////////ALGO///////////////
 t_ext	*get_closest_min(t_ext **min, int k, int len);
 void	push_swap(t_list **lst);
-int		find_best_chunk_size(t_list **stack);
+// int		find_best_chunk_size(t_list **stack);
+int	find_best_chunk_size(t_list **stack, int chunk_size, int min_op, int res);
 		   ///////SORT///////
 void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, t_iter iter);
 void	sort_a(t_list **stack_a, t_list **stack_b, int size);

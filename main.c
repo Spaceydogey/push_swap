@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:24 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/20 16:01:33 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/20 18:41:26 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,34 @@ void	push_swap(t_list **lst)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
+	t_list	*tmp;
 	t_ext	**min;
 	int		size;
 	t_iter	iter;
 
 	stack_a = *lst;
+	tmp = *lst;
 	size = ps_lstsize(stack_a);
 	min = malloc(sizeof(t_ext) * size);
 	if (!min)
 		return ;
 	stack_b = NULL;
-	// iter.chunk_size = find_best_chunk_size(&stack_a);
-	// printf("%d\n", iter.chunk_size);
-	iter.chunk_size = 25;
-	iter.iter = 0;
-	iter.iter_max = size / iter.chunk_size;
-	if (size % iter.chunk_size > 0)
-		iter.iter_max += 1;
-	if (size < LEN)
-		sort_a(&stack_a, &stack_b, size);
-	else
-		sort(&stack_a, &stack_b, min, iter);
-	push_all_of_b(&stack_a, &stack_b);
-	ps_lstclear(&stack_a);
-	if (size > LEN)
-		free_min(min, iter.chunk_size * iter.iter_max);
-	free(min);
+	iter.chunk_size = find_best_chunk_size(&tmp, 10, INT_MAX, 10);
+	printf("%d\n", iter.chunk_size);
+	// iter.chunk_size = 25;
+	// iter.iter = 0;
+	// iter.iter_max = size / iter.chunk_size;
+	// if (size % iter.chunk_size > 0)
+	// 	iter.iter_max += 1;
+	// if (size < LEN)
+	// 	sort_a(&stack_a, &stack_b, size);
+	// else
+	// 	sort(&stack_a, &stack_b, min, iter);
+	// push_all_of_b(&stack_a, &stack_b);
+	// ps_lstclear(&stack_a);
+	// if (size > LEN)
+	// 	free_min(min, iter.chunk_size * iter.iter_max);
+	// free(min);
 }
 
 static void	free_all(char **tab, char **save_av, int size, int ac)

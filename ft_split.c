@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:04:24 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/19 09:56:46 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/21 17:01:44 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static size_t	word_count(char const *s, char c)
 	return (res);
 }
 
-static char	**free_all(char **tab, size_t nbr_words)
+static char	**free_tab(char **tab, size_t nbr_words)
 {
 	size_t	i;
 
@@ -69,7 +69,7 @@ static char	**put_word(char const *s, char c, char **res, size_t nbr_words)
 		end = word_pos(&start, j, s, c);
 		res[i] = malloc(sizeof(char) * ((end - start) + 1));
 		if (!res[i])
-			return (free_all(res, i));
+			return (free_tab(res, i));
 		res[i][end - start] = '\0';
 		j = start;
 		k = 0;

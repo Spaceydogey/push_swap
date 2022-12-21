@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:24 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/21 16:42:16 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/21 17:02:45 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	ps_run(int save_ac, char **save_av)
 	stack_a = parsing(save_ac, save_av);
 	if (!stack_a)
 		return (1);
+	chunk_size = 1;
 	if (ps_lstsize(stack_a) > LEN)
 	{
 		chunk_size = find_best_chunk_size(save_ac, save_av);

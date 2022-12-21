@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:24 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/20 18:41:26 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/21 13:32:22 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,35 @@ void	free_min(t_ext **min, int size)
 		free(min[k]);
 }
 
-void	push_swap(t_list **lst)
+void	push_swap(t_list **lst, int chunk_size)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
-	t_list	*tmp;
 	t_ext	**min;
 	int		size;
 	t_iter	iter;
 
 	stack_a = *lst;
-	tmp = *lst;
+
 	size = ps_lstsize(stack_a);
 	min = malloc(sizeof(t_ext) * size);
 	if (!min)
 		return ;
 	stack_b = NULL;
-	iter.chunk_size = find_best_chunk_size(&tmp, 10, INT_MAX, 10);
-	printf("%d\n", iter.chunk_size);
-	// iter.chunk_size = 25;
-	// iter.iter = 0;
-	// iter.iter_max = size / iter.chunk_size;
-	// if (size % iter.chunk_size > 0)
-	// 	iter.iter_max += 1;
-	// if (size < LEN)
-	// 	sort_a(&stack_a, &stack_b, size);
-	// else
-	// 	sort(&stack_a, &stack_b, min, iter);
-	// push_all_of_b(&stack_a, &stack_b);
-	// ps_lstclear(&stack_a);
-	// if (size > LEN)
-	// 	free_min(min, iter.chunk_size * iter.iter_max);
-	// free(min);
+	iter.chunk_size = chunk_size;
+	iter.iter = 0;
+	iter.iter_max = size / iter.chunk_size;
+	if (size % iter.chunk_size > 0)
+		iter.iter_max += 1;
+	if (size < LEN)
+		sort_a(&stack_a, &stack_b, size);
+	else
+		sort(&stack_a, &stack_b, min, iter);
+	push_all_of_b(&stack_a, &stack_b);
+	ps_lstclear(&stack_a);
+	if (size > LEN)
+		free_min(min, iter.chunk_size * iter.iter_max);
+	free(min);
 }
 
 static void	free_all(char **tab, char **save_av, int size, int ac)
@@ -103,6 +100,13 @@ int	main(int ac, char **av)
 			save_ac++;
 		}
 	}
+	chunk_size = find_best_chunk_size(save_ac, save_av);
+	if (chunk_size == -1)
+	{
+		ft_putendl_fd("Error\n", 2);
+		free_all(arg, save_av, i, ac);
+		return (1);
+	}
 	stack_a = parsing(save_ac, save_av);
 	if (!stack_a)
 	{
@@ -111,6 +115,6 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	free_all(arg, save_av, i, ac);
-	push_swap(&stack_a);
+	// push_swap(&stack_a, chunk_size);
 	return (0);
 }

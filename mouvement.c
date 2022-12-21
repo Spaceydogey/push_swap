@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:15:26 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/20 13:13:07 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/21 11:20:37 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	push(t_list **dst, t_list **src)
 	tmp_content = (*src)->content;
 	tmp_next = (*src)->next;
 	tmp_new = ps_lstnew((tmp_content));
-	// free(*src);
+	free(*src);
 	*src = tmp_next;
 	ps_addfront(dst, tmp_new);
 }

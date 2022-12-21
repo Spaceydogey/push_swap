@@ -6,17 +6,18 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:31:00 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/20 14:19:07 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/21 12:29:49 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIND_BEST_CHUNK_H
 # define FIND_BEST_CHUNK_H
 # include "push_swap.h"
+
 typedef struct s_stacks
 {
-	t_list **stack_a;
-	t_list **stack_b;
+	t_list	**stack_a;
+	t_list	**stack_b;
 }	t_stacks;
 
 void	sa_chunk(t_list **stack_a, int *count);

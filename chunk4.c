@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:41:04 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/20 15:01:43 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/21 13:06:06 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ static void	update_all_min(t_list **stack_a, t_ext **min, t_iter iter, int size)
 	}
 }
 
+void	test_push_all_of_b(t_list **stack_a, t_list **stack_b, int *count)
+{
+	while (*stack_b)
+		pa_chunk(stack_a, stack_b, count);
+}
+
 void	test_move_a(t_list **stack_a, t_ext **min, t_iter iter, int *count)
 {
 	int		size;
@@ -59,4 +65,4 @@ void	test_move_a(t_list **stack_a, t_ext **min, t_iter iter, int *count)
 				min[(iter.last_iter * len) + len - 1]->pos = size;
 		}
 	}
-} 
+}

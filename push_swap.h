@@ -6,7 +6,7 @@
 /*   By: hdelmas <hdelmas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 13:13:42 by hdelmas           #+#    #+#             */
-/*   Updated: 2022/12/21 12:49:59 by hdelmas          ###   ########.fr       */
+/*   Updated: 2022/12/21 16:43:12 by hdelmas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include <stdio.h>
 
 # define LEN 25
+
+typedef struct s_arg
+{
+	int		ac;
+	char	**av;
+}	t_arg;
 
 typedef struct s_incr
 {
@@ -88,8 +94,7 @@ void	rrb(t_list **stack_b);
 void	rrr(t_list **stack_a, t_list **stack_b);
 /////////////////ALGO///////////////
 t_ext	*get_closest_min(t_ext **min, int k, int len);
-void	push_swap(t_list **lst, int chunk_size);
-int		find_best_chunk_size(int save_ac, char **save_av);\
+int		find_best_chunk_size(int save_ac, char **save_av);
 ///////SORT///////
 void	sort(t_list **stack_a, t_list **stack_b, t_ext **min, t_iter iter);
 void	sort_a(t_list **stack_a, t_list **stack_b, int size);
@@ -111,6 +116,8 @@ void	free_min(t_ext **min, int size);
 ///////////////PARASING/////////////
 t_list	*parsing(int ac, char **av);
 /////////////////UTILS////////////////
+void	free_all(char **tab, char **save_av, int size, int ac);
+int		free_err(char **tab, char **save_av, int size, int ac);
 size_t	ft_strlen(const char *s);
 int		ft_isdigit(int c);
 void	ps_addfront(t_list **list, t_list *new);
